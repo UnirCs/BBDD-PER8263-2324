@@ -7,12 +7,12 @@ Trabajaremos con MySQL (versión latest) y Oracle Database (versión 19c Enterpr
 https://raw.githubusercontent.com/UnirCs/BBDD-PER8263-2324/master/Tema_1/00_Resources/1_docker%20modo%20cli.png
 <a href="https://www.unir.net/ingenieria/grado-informatica/"></a>
 
-## Requisitos previos
+# 1. Requisitos previos
 
 1. Debes [descargar Docker Desktop](https://www.docker.com/products/docker-desktop/) que incluye de por sí la instalación de Docker Engine.
 2. Debes disponer de algún programa que permita visualizar bases de datos. Durante el curso utilizaremos [JetBrains DataGrip](https://www.jetbrains.com/es-es/datagrip/), uno de los mejores IDEs profesionales para trabajar con bases de datos.
 
-## Instalación de MySQL
+# 2. Instalación de MySQL
 
 1. Abre una consola en tu equipo (Terminal o Power shell) y ejecuta el siguiente comando para descargar la imagen más reciente de MySQL:
 
@@ -63,3 +63,6 @@ https://raw.githubusercontent.com/UnirCs/BBDD-PER8263-2324/master/Tema_1/00_Reso
 7. Como curiosidad, puedes utilizar DataGrip para ver el modelo E/R de un schema.
 
    <img src="https://raw.githubusercontent.com/UnirCs/BBDD-PER8263-2324/master/Tema_1/00_Resources/8_vista%20de%20diagrama.png">
+
+# 3. Instalación de Oracle Database 19c
+
