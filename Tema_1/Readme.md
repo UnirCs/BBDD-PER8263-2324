@@ -4,6 +4,8 @@ Instalación de bases de datos relacionales con imágenes Docker
 En este primer ejercicio vamos a instalar dos bases de datos relacionales que utilizaremos durante la primera parte del curso.
 
 Trabajaremos con MySQL (versión latest) y Oracle Database (versión 19c Enterprise Edition). Sigue las siguientes instrucciones para instalar en tu máquina local estas bases de datos a través de imágenes Docker.
+https://raw.githubusercontent.com/UnirCs/BBDD-PER8263-2324/master/Tema_1/00_Resources/1_docker%20modo%20cli.png
+<a href="https://www.unir.net/ingenieria/grado-informatica/"></a>
 
 ## Requisitos previos
 
@@ -27,7 +29,37 @@ Trabajaremos con MySQL (versión latest) y Oracle Database (versión 19c Enterpr
    - En nuestra máquina local, desde una consola moveremos el contenido de la carpeta test_db-master al contenedor. Para ello, ejecutaremos el siguiente comando (en este caso se está lanzando desde la carpeta local donde se encuentra el directorio test_db-master):
 
             docker cp Downloads/test_db-master <<containerId>>:/employees
+     
+   - Entramos a la consola del contenedor, seleccionando nuestro contenedor en ejecución y haciendo click en "CLI":
+     
+     <img src="https://raw.githubusercontent.com/UnirCs/BBDD-PER8263-2324/master/Tema_1/00_Resources/1_docker%20modo%20cli.png">
+   - Navegamos a la carpeta ``employees`` que creamos a través del comando anterior:
+     
+     <img src="https://raw.githubusercontent.com/UnirCs/BBDD-PER8263-2324/master/Tema_1/00_Resources/2_docker%20entrando%20a%20carpeta.png">
+   - Ejecutamos el archivo ``employees.sql`` tal como se muestra:
+     
+     <img src="https://raw.githubusercontent.com/UnirCs/BBDD-PER8263-2324/master/Tema_1/00_Resources/3_creando%20schema.png">
+   - En este punto la base de datos debería tener instalado el Schema de pruebas.
+     
 
-4. Conectaremos con la base de datos MySQL a través de DataGrip y ejecutaremos alguna consulta para comprobar que todo funciona correctamente.
+5. Conectaremos con la base de datos MySQL a través de DataGrip y ejecutaremos alguna consulta para comprobar que todo funciona correctamente.
 
-5. Como curiosidad, puedes utilizar DataGrip para ver el modelo E/R de un schema.
+   - En la parte superior izquierda de la aplicación, le damos al símbolo ``+`` para crear una nueva conexión. En este caso, MySQL.
+     
+     <img src="https://raw.githubusercontent.com/UnirCs/BBDD-PER8263-2324/master/Tema_1/00_Resources/4_Seleccion%20de%20db.png">
+   - Introducimos los datos necesarios teniendo en cuenta los valores que usamos durante la creación del contenedor (usuario ``root`` y contraseña ``mysql``). El host siempre será localhost y el puerto es ``3306`` puesto que ese fue el que expusimos al exterior en nuestro contenedor.
+     
+     <img src="https://raw.githubusercontent.com/UnirCs/BBDD-PER8263-2324/master/Tema_1/00_Resources/5_Setup%20de%20db%20mysql.png">
+   - Probamos la conexión. Debe aparecer una mensaje en verde indicando que hay conectividad.
+     
+     <img src="https://raw.githubusercontent.com/UnirCs/BBDD-PER8263-2324/master/Tema_1/00_Resources/6_Setup%20de%20db%20mysql%20ok.png">
+   - En la base de datos habrá varios schemas por defecto instalados. Seleccionamos el schema ``employees`` que acabamos de instalar.
+     
+     <img src="https://raw.githubusercontent.com/UnirCs/BBDD-PER8263-2324/master/Tema_1/00_Resources/7_seleccion%20de%20schema.png">
+   - Ejecutamos una consulta a modo de prueba para ver que la conexión efectivamente funciona.
+  
+     <img src="https://raw.githubusercontent.com/UnirCs/BBDD-PER8263-2324/master/Tema_1/00_Resources/9_ejecucion%20de%20sentencia%20sql.png">
+
+7. Como curiosidad, puedes utilizar DataGrip para ver el modelo E/R de un schema.
+
+   <img src="https://raw.githubusercontent.com/UnirCs/BBDD-PER8263-2324/master/Tema_1/00_Resources/8_vista%20de%20diagrama.png">
