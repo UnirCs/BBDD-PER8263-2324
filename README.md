@@ -1,4 +1,4 @@
-PER 8263- 2023/2024
+PER 8263 y 9787 - 2023/2024
 ================
 
 Usaremos este repositorio para nuestro trabajo colaborativo a través del curso.
