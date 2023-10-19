@@ -1,5 +1,9 @@
 # Alberto de la Serna - Primer ejercicio Octubre 20
 
+## Ayuda para autenticarse por SSH nueva a tu cuenta de GitHub
+https://docs.github.com/es/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
+
+
 ## Cómo trabajar con dos cuentas de github desde MAC en la terminal.
 
 https://gist.github.com/rahularity/86da20fe3858e6b311de068201d279e3
