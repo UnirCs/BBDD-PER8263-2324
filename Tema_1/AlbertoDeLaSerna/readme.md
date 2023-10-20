@@ -1,5 +1,19 @@
 # Alberto de la Serna - Primer ejercicio Octubre 20
 
+
+
+En otras ocasiones he utilizado el GitHub Desktop desde MAC con mi cuenta personal y por defecto en esta máquina está mi cuenta personal asociada a GitHub.
+
+
+
+Como he creado una nueva cuenta como estudiando me he encontrado con el problema de cómo configurar la utenticación desde terminal (ssh) y de como configurar mi MAC para tener dos cuentas de GitHub diferentes.
+
+
+
+Dejo la ayuda que a mí me ha servido para utilizar esto.
+
+
+
 ## Ayuda para autenticarse por SSH nueva a tu cuenta de GitHub
 https://docs.github.com/es/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
 
@@ -95,7 +109,7 @@ We can directly copy the content of the public key file in the clipboard.
 ```sh
      pbcopy < ~/.ssh/github-rahul-office.pub
      pbcopy < ~/.ssh/github-rahul-personal.pub
-```   
+```
 
 
 __2. Paste the public key on Github__
