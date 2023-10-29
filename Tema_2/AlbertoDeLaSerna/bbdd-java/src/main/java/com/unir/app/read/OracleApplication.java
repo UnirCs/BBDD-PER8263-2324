@@ -113,10 +113,11 @@ public class OracleApplication {
                 "XMLELEMENT(\"managers\",\n" +
                 "    XMLAGG(\n" +
                 "        XMLELEMENT(\"manager\",\n" +
-                "            XMLELEMENT(\"nombreCompleto\",\n" +
-                "                XMLELEMENT(\"nombre\",e.FIRST_NAME),\n" +
-                "                XMLELEMENT(\"apellido\",e.LAST_NAME)\n" +
-                "            ),\n" +
+                "            XMLELEMENT(\"nombreCompleto\"," +
+                "                XMLFOREST(" +
+                "                    e.FIRST_NAME as \"nombre\"," +
+                "                    e.LAST_NAME as \"apellido\"" +
+                "                ))," +
                 "            XMLELEMENT(\"department\",d.DEPARTMENT_NAME),\n" +
                 "            XMLELEMENT(\"city\",l.CITY),\n" +
                 "            XMLELEMENT(\"country\",c.COUNTRY_NAME)\n" +
