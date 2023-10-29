@@ -1,15 +1,14 @@
 # Alberto de la Serna - Tema 2 - Ejercicios
 
-## Dificultades encontradas
+Hago entrega de las consultas de base de datos así como del programa de java.
 
-Al bajarme el programa de Java para probar diferentes queries me he dado cuento que los conectores trabajan con variables de entorno.
+Consultas a base de datos:
 
-Para establecer las variables de entorno en el IDE, hay que ir al menú run y rellenar el apartado "Enviroment Variables": estas son las que he puesto: 
+- `ConsultasMySQL.sql`
 
-Para OracleApplication:
-`ORACLE_USER=HR;ORACLE_PASSWORD=oracle`
+- `ConsultasOracle.sql`
 
-Para MySqlApplication:
+Proyecto Java:
 
+`bbdd-java`
 
-`MYSQL_USER=root;MYSQL_PASSWORD=mysql`
