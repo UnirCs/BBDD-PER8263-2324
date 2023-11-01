@@ -1,7 +1,8 @@
 /* 1. Obtener el número de hombres y mujeres de la base de datos. Ordenar de forma descendente. */
-SELECT gender as Genero, count(*)
+SELECT gender as Genero, count(*) as Total
 FROM employees
 GROUP BY gender
+ORDER BY Total desc
 
 /* 2. Mostrar el nombre, apellido y salario de la persona mejor pagada de un departamento concreto (parámetro variable). */
 SELECT first_name as Nombre, last_name as Apellido, salary as Salario

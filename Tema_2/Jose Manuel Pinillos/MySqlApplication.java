@@ -18,10 +18,17 @@ public class MySqlApplication {
 
             log.info("Conexión establecida con la base de datos Oracle");
 
+            log.debug("1. Obtener el número de hombres y mujeres de la base de datos. Ordenar de forma descendente.");
             selectMenAndWomenDescend(connection);
+
+            log.debug("2. Mostrar el nombre, apellido y salario de la persona mejor pagada de un departamento concreto (parámetro variable).");
             highestpaidperson(connection, "d005");
+
+            log.debug("3. Mostrar el nombre, apellido y salario de la segunda persona mejor pagada de un departamento concreto (parámetro variable).");
             secondhighestpaidperson(connection, "d005");
-            hiredemployees(connection, 3);
+
+            log.debug("4. Mostrar el número de empleados contratados en un mes concreto (parámetro variable).");
+            hireemployees(connection, 3);
 
         } catch (Exception e) {
             log.error("Error al tratar con la base de datos", e);
@@ -29,9 +36,10 @@ public class MySqlApplication {
     }
 
     private static void selectMenAndWomenDescend(Connection connection) throws SQLException {
-        PreparedStatement selectEmployees = connection.prepareStatement("select gender as 'Genero', count(*)\n as 'Total'" +
-                "from employees\n" +
-                "group by gender");
+        PreparedStatement selectEmployees = connection.prepareStatement("SELECT gender as Genero, count(*) as Total\n" +
+                "FROM employees\n" +
+                "GROUP BY gender\n" +
+                "ORDER BY Total desc");
 
         ResultSet employees = selectEmployees.executeQuery();
 
@@ -86,10 +94,10 @@ public class MySqlApplication {
         }
     }
 
-    private static void hiredemployees(Connection connection, Integer mes) throws SQLException {
+    private static void hireemployees(Connection connection, Integer mes) throws SQLException {
         PreparedStatement selectEmployees = connection.prepareStatement("select count(*) as 'Total'\n" +
                 "from employees\n" +
-                "where month(hire_date) = ?;\n");
+                "where month(hire_date) = ?\n");
 
         selectEmployees.setString(1, String.valueOf(mes));
         ResultSet employees = selectEmployees.executeQuery();
