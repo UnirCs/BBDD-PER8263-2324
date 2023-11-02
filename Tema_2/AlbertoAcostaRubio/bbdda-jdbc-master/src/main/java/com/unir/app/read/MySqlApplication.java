@@ -157,7 +157,7 @@ public class MySqlApplication {
         ResultSet employees = selectEmployees.executeQuery();
         
         while (employees.next()) {
-            int cantidad = employees.getInt("numero_empleados_contratados");
+             int cantidad = employees.getInt("numero_empleados_contratados");
             log.debug("Empleados contratados en el mes {}: {}", date, cantidad);
         }
     }
