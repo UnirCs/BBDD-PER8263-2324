@@ -1,0 +1,10 @@
+18:11:52.367 [main] INFO com.unir.app.read.MySqlApplication - Conexión establecida con la base de datos MySQL
+18:11:52.370 [main] INFO com.unir.app.read.MySqlApplication - Primera consulta:
+18:11:52.722 [main] DEBUG com.unir.app.read.MySqlApplication - Empleados totales M: 179973
+18:11:52.723 [main] DEBUG com.unir.app.read.MySqlApplication - Empleados totales F: 120051
+18:11:52.723 [main] INFO com.unir.app.read.MySqlApplication - Segunda consulta:
+18:11:53.480 [main] DEBUG com.unir.app.read.MySqlApplication - Empleado mejor pagado del departamento Sales: Tokuyasu Pesch - Cobrando: 158220
+18:11:53.480 [main] INFO com.unir.app.read.MySqlApplication - Tercera consulta
+18:11:54.226 [main] DEBUG com.unir.app.read.MySqlApplication - Segundo empleado mejor pagado del departamento Sales: Tokuyasu Pesch - Cobrando: 157821
+18:11:54.227 [main] INFO com.unir.app.read.MySqlApplication - Cuarta consulta
+18:11:54.351 [main] DEBUG com.unir.app.read.MySqlApplication - Empleados contratados en el mes 1: 23859
