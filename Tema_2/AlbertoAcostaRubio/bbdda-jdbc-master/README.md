@@ -1,0 +1,1 @@
+Efectivamente al pasar a IJ los problemas con los drivers se han resuelto, dejo pendiente la segunda pregunta del ejercicio de Oracle.
