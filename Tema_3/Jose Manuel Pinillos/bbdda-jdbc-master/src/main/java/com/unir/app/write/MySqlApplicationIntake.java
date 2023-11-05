@@ -230,7 +230,7 @@ public class MySqlApplicationIntake {
         String selectSqlDeptEmp = "SELECT COUNT(*) FROM dept_emp WHERE emp_no = ? and dept_no = ?";
         String insertSqlDeptEmp = "INSERT INTO dept_emp (emp_no, dept_no, from_date, to_date) "
                 + "VALUES (?, ?, ?, ?)";
-        String updateSqlDeptEmp = "UPDATE employees SET from_date = ?, to_date = ? WHERE emp_no = ? and dept_no = ?";
+        String updateSqlDeptEmp = "UPDATE dept_emp SET from_date = ?, to_date = ? WHERE emp_no = ? and dept_no = ?";
 
         int lote = 5;
         int contador = 0;
@@ -262,12 +262,6 @@ public class MySqlApplicationIntake {
                 insertStatement.addBatch();
             }
 
-            // Ejecutamos el batch cada lote de registros
-            if (++contador % lote == 0) {
-                updateStatement.executeBatch();
-                insertStatement.executeBatch();
-            }
-
             // Comprobamos si la relación entre departamento y empleado existe
             PreparedStatement selectStatementDeptEmp = connection.prepareStatement(selectSqlDeptEmp);
             selectStatementDeptEmp.setInt(1, employee.getEmployeeId()); // ID del empleado
@@ -279,10 +273,10 @@ public class MySqlApplicationIntake {
 
             // Si existe, actualizamos. Si no, insertamos
             if(rowCountDeptEmp > 0) {
-                fillUpdateStatementDeptEmp(updateStatement, employee);
+                fillUpdateStatementDeptEmp(updateStatementDeptEmp, employee);
                 updateStatementDeptEmp.addBatch();
             } else {
-                fillInsertStatementDeptEmp(insertStatement, employee);
+                fillInsertStatementDeptEmp(insertStatementDeptEmp, employee);
                 insertStatementDeptEmp.addBatch();
             }
 
