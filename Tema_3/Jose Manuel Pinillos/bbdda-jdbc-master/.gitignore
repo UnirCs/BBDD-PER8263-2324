@@ -39,13 +39,10 @@ nb-configuration.xml
 *.iws
 *.ipr
 .idea/
+.idea/**
 
 # Maven build tools.
 target
-/target
-**/target
-/target/
-**/target/
 
 # Sprint Tools 
 *.sts4-cache
