@@ -4,12 +4,12 @@
 
 Spring es un framework de desarrollo para Java que proporciona una infraestructura integral para desarrollar aplicaciones Java. Es conocido por su inyección de dependencias y su modelo de programación orientado a aspectos. Permite a los desarrolladores crear aplicaciones de alto rendimiento con una configuración simplificada y un soporte robusto para transacciones de base de datos y REST APIs. Para más detalles, consulta la [documentación oficial de Spring](https://docs.spring.io/spring-framework/docs/current/reference/html/).
 
----
+
 ## 2. Objetivos
 
 El propósito de este ejercicio es fortalecer la comprensión y habilidades en la creación de entidades JPA y el uso de repositorios en Spring Data JPA. Se utilizará un proyecto base que ya tiene algunas entidades y repositorios configurados.
 
----
+
 ## 3. Ejercicio
 
 Mejorarás el esquema `Employee`, completando las entidades faltantes, ampliarás la funcionalidad de los repositorios existentes y expondrás operaciones a través de endpoints REST.
