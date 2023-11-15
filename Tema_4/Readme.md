@@ -33,7 +33,7 @@ Hibernate es un marco de trabajo (framework) para el mapeo objeto-relacional (OR
 2. Completa las entidades JPA que faltan en el proyecto de apoyo. Deberás añadir el código correspondiente para las tablas ``Salary`` y ``Title`` así como modificar otras si lo crees conveniente.
 3. Modifica los DAOs ``EmployeesDAO`` y ``DepartmentsDAO``. Incluye todas las consultas que realizaste en la actividad 2 (para MySQL) y comprueba que devuelven los mismos resultados que si se ejecutasen en DataGrip.
 
-## 3. Entrega
+## 4. Entrega
 
 Crea una carpeta con tu nombre y apellidos dentro de ``Tema_4``. Deberás incluir :
 
