@@ -28,6 +28,8 @@ public class HibernateMySqlConfig {
                 configuration.addAnnotatedClass(Department.class);
                 configuration.addAnnotatedClass(DeptEmployee.class);
                 configuration.addAnnotatedClass(DeptManager.class);
+                configuration.addAnnotatedClass(Title.class);
+                configuration.addAnnotatedClass(Salary.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

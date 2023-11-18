@@ -15,6 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Employee {
+
     @Id
     @Column(name = "emp_no")
     private Integer empNo;
@@ -37,6 +38,12 @@ public class Employee {
 
     @OneToMany(mappedBy = "empNo")
     private Set<DeptEmployee> deptEmployees;
+
+    @OneToMany(mappedBy = "empNo")
+    private Set<Title> titles;
+
+    @OneToMany(mappedBy = "empNo")
+    private Set<Salary> salaries;
 
     enum Gender {
         M, F
