@@ -6,9 +6,13 @@ import com.unir.dao.DepartmentsDao;
 import com.unir.dao.EmployeesDao;
 import com.unir.model.mysql.Department;
 import com.unir.model.mysql.Employee;
+import com.unir.model.mysql.Salary;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
+
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 public class MySqlApplication {
@@ -25,37 +29,47 @@ public class MySqlApplication {
 
             //Creamos los DAOs que nos permitirán interactuar con la base de datos
             EmployeesDao employeesDao = new EmployeesDao(session);
-            DepartmentsDao departmentsDao = new DepartmentsDao(session);
 
-            //Ejemplo de uso de DAO 1: Obtenemos todos los empleados de la base de datos
-            List<Employee> employees = employeesDao.findByDepartment("d001");
-            log.info("Empleados del departamento d001: {}", employees.size());
+            // 1. Obtener el número de hombres y mujeres de la base de datos. Ordenar de forma descendente.
+            List <Object[]> employeesByGender = employeesDao.groupEmployeesByGender();
 
-            //Ejemplo de uso de DAO 2: Insertamos un nuevo empleado. Save por defecto no actualiza, solo inserta.
-            Department bbddDepartment = new Department();
-            bbddDepartment.setDeptName("Database Department");
-            bbddDepartment.setDeptNo("d010");
-            //departmentsDao.save(bbddDepartment);
-            //log.info("Departamento insertado: {}", bbddDepartment);
+            log.info("CONSULTA 1");
+            for (Object[] gender :employeesByGender) {
+                log.info("Género: {}, Total: {}", gender[0], gender[1]);
+            }
 
-            //Ejemplo de uso de DAO 3: La actualizacion ocurre cuando modificamos un objeto que ya existe en la base de datos (Entity Manager controla su ciclo de vida)
-            //Lo recuperamos de la base de datos.
-            //Lo modificamos.
-            session.beginTransaction();
-            log.info("Obteniendo jesus");
-            Employee jesus = employeesDao.getById(1001);
-            jesus.setFirstName(("J" + System.currentTimeMillis()));
-            log.info("jesus modificado");
-            //Al hacer commit de la transaccion se actualiza el objeto en la base de datos sin hacer un update explicito (EM controla el ciclo de vida del objeto)
-            session.getTransaction().commit();
+            // 2. Mostrar el nombre, apellido y salario de la persona mejor pagada de un departamento concreto (parámetro variable).
+            Employee personBestSalary = employeesDao.findEmployeeBestSalary("d005");
 
-            //Ejemplo de uso de DAO 4: Eliminamos un empleado
-            session.beginTransaction();
-            //Eliminamos un empleado
-            employeesDao.remove(jesus);
-            jesus = employeesDao.getById(1001);
-            //Hacemos rollback para que no se aplique la eliminación
-            session.getTransaction().rollback();
+            Integer max = 0;
+
+            for (Salary salary:personBestSalary.getSalaries()) {
+                if (salary.getSalary() > max ) {
+                    max = salary.getSalary();
+                }
+            }
+            log.info("CONSULTA 2");
+            log.info("Nombre: {} {} ---> Salario: {}", personBestSalary.getFirstName(), personBestSalary.getLastName(), max);
+
+            // 3. Mostrar el nombre, apellido y salario de la segunda persona mejor pagada de un departamento concreto (parámetro variable).
+            Employee secondPersonBestSalary = employeesDao.findSecondEmployeeBestSalary("d005");
+
+            max = 0;
+
+            for (Salary salary:secondPersonBestSalary.getSalaries()) {
+                if (salary.getSalary() > max ) {
+                    max = salary.getSalary();
+                }
+            }
+
+            log.info("CONSULTA 3");
+            log.info("Nombre: {} {} ---> Salario: {}", secondPersonBestSalary.getFirstName(), secondPersonBestSalary.getLastName(), max);
+
+            // 4. Mostrar el número de empleados contratados en un mes concreto (parámetro variable).
+            Long numberOfEmployees = employeesDao.findNumberOfEmployees(3);
+
+            log.info("CONSULTA 4");
+            log.info("Numero de empleados contratadoses: {}", numberOfEmployees);
 
         } catch (Exception e) {
             log.error("Error al tratar con la base de datos", e);

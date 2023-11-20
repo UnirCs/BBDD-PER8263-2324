@@ -26,7 +26,7 @@ public class Salary {
     private Integer salary;
 
     @Id
-    @Column(name = "from_date")
+    @Column(name = "from_date", columnDefinition="DATE")
     private Date fromDate;
 
     @Column(name = "to_date", columnDefinition="DATE")

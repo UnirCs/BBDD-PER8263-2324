@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "title")
+@Table(name = "titles")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -27,7 +27,7 @@ public class Title {
     private String title;
 
     @Id
-    @Column(name = "from_date")
+    @Column(name = "from_date", columnDefinition="DATE")
     private Date fromDate;
 
     @Column(name = "to_date", columnDefinition="DATE")

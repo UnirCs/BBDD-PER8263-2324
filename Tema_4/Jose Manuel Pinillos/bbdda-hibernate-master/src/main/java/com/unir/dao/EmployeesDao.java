@@ -4,6 +4,7 @@ import com.unir.model.mysql.Employee;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import java.sql.SQLException;
 import java.util.List;
@@ -14,55 +15,57 @@ public class EmployeesDao {
 
     private final Session session;
 
-    /**
-     * Consulta de todos los empleados de la base de datos
-     * Se ofrecen dos versiones
-     * 1. Con SQL nativo
-     * 2. Con HQL: https://docs.jboss.org/hibernate/orm/3.5/reference/es-ES/html/queryhql.html
-     * @throws SQLException Excepción en caso de error
-     */
-    public List<Employee> findAll() throws SQLException {
-        List<Employee> employees = session.createNativeQuery("SELECT * FROM employees", Employee.class).list();
-        log.debug("Número de empleados: {}", employees.size());
-        session.createQuery("FROM Employee", Employee.class).list();
-        return employees;
-    }
+    // 1. Obtener el número de hombres y mujeres de la base de datos. Ordenar de forma descendente.
+    public List<Object[]> groupEmployeesByGender() throws SQLException {
+        NativeQuery<Object[]> query = session.createNativeQuery("SELECT gender, count(*) as Total\n" +
+                "        FROM employees\n" +
+                "        GROUP BY gender\n" +
+                "        ORDER BY Total desc");
 
-    /**
-     * Consulta de todos los empleados de un departamento
-     * @param departmentId Identificador del departamento
-     * @return Lista de empleados
-     * @throws SQLException Excepción en caso de error
-     */
-    public List<Employee> findByDepartment(String departmentId) throws SQLException {
-        Query<Employee> query = session.createNativeQuery("SELECT e.*\n" +
-                "FROM employees.employees e\n" +
-                "JOIN employees.dept_emp de ON e.emp_no = de.emp_no\n" +
-                "JOIN employees.departments d ON de.dept_no = d.dept_no\n" +
-                "WHERE d.dept_no = :deptNo", Employee.class);
-        query.setParameter("deptNo", departmentId);
         return query.list();
     }
 
-    /**
-     * Obtención de un empleado por su identificador.
-     * @param id - Identificador del empleado.
-     * @return Empleado.
-     * @throws SQLException - Excepción en caso de error.
-     */
-    public Employee getById(Integer id) throws SQLException {
-        return session.get(Employee.class, id);
+    // 2. Mostrar el nombre, apellido y salario de la persona mejor pagada de un departamento concreto (parámetro variable).
+    public Employee findSecondEmployeeBestSalary(String departmentId) throws SQLException {
+        NativeQuery<Employee> query = session.createNativeQuery("SELECT employees.*\n" +
+                "    FROM employees, salaries, departments, dept_emp\n" +
+                "    WHERE employees.emp_no = salaries.emp_no and\n" +
+                "    employees.emp_no = dept_emp.emp_no and\n" +
+                "    departments.dept_no = dept_emp.dept_no and\n" +
+                "    dept_emp.dept_no = :deptNo\n" +
+                "    ORDER BY salary DESC\n" +
+                "    LIMIT 1,1", Employee.class);
+
+        query.setParameter("deptNo", departmentId);
+
+        Employee employee = query.getSingleResult();
+        return employee;
     }
 
-    /**
-     * Elimina un empleado de la base de datos.
-     * @param employee - Empleado a eliminar.
-     * @return true si se ha eliminado correctamente.
-     * @throws SQLException - Excepción en caso de error.
-     */
-    public Boolean remove(Employee employee) throws SQLException {
-        session.remove(employee);
-        return true;
+    // 3. Mostrar el nombre, apellido y salario de la segunda persona mejor pagada de un departamento concreto (parámetro variable).
+    public Employee findEmployeeBestSalary(String departmentId) throws SQLException {
+        NativeQuery<Employee> query = session.createNativeQuery("SELECT employees.*\n" +
+                "    FROM employees, salaries, departments, dept_emp\n" +
+                "    WHERE employees.emp_no = salaries.emp_no and\n" +
+                "    employees.emp_no = dept_emp.emp_no and\n" +
+                "    departments.dept_no = dept_emp.dept_no and\n" +
+                "    dept_emp.dept_no = :deptNo\n" +
+                "    ORDER BY salary DESC\n" +
+                "    LIMIT 1", Employee.class);
+
+        query.setParameter("deptNo", departmentId);
+
+        Employee employee = query.getSingleResult();
+        return employee;
     }
 
+    // 4. Mostrar el número de empleados contratados en un mes concreto (parámetro variable).
+    public Long findNumberOfEmployees(int month) throws SQLException {
+        NativeQuery<Long> query = session.createNativeQuery("SELECT count(*) as Empleados_contratados\n" +
+                "FROM employees\n" +
+                "WHERE month(hire_date) = :hireDate");
+
+        query.setParameter("hireDate", month);
+        return query.getSingleResult();
+    }
 }
