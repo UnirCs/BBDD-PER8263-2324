@@ -1,0 +1,23 @@
+dept_no;dept_name
+d001,Customer Service;
+d002,Development;
+d003,Finance;
+d004,Human Resources;
+d005,Marketing;
+d006,Production;
+d007,Quality Management;
+d008,Research;
+d009,Sales;
+d010,Information Technology (IT);
+d011,Legal Affairs;
+d012,Procurement;
+d013,Supply Chain;
+d014,Logistics;
+d015,Corporate Strategy;
+d016,Risk Management;
+d017,Innovation;
+d018,Compliance;
+d019,Corporate Communications;
+d020,Environmental Health and Safety (EHS);
+d021,Product Design;
+d022,International Business Development;
