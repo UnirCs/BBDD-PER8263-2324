@@ -58,7 +58,7 @@ public class MySqlApplication {
     private static void selectMaxSalaryPersonDeparment(Connection connection, String departmentId) throws SQLException {
         PreparedStatement selectEmployees = connection.prepareStatement(
                 "SELECT CONCAT(first_name, ' ', last_name) as 'Name', MAX(salary) as 'MaxSalary'\n" +
-                        "from ((employees (INNER JOIN) salaries ON salaries.emp_no = employees.emp_no)\n" +
+                        "from ((employees INNER JOIN salaries ON salaries.emp_no = employees.emp_no)\n" +
                         "INNER JOIN dept_emp ON employees.emp_no = dept_emp.emp_no)\n" +
                         "WHERE dept_emp.dept_no = ?\n" +
                         "group by Name\n" +
