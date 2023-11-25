@@ -114,6 +114,7 @@ public class PromotionsController {
 A partir de este momento ya puedes hacer pruebas. Busca datos en la base de datos para ejecutar de forma correcta la transacción. Luego modifica el nuevo salario introducido por API para que viole la condición impuesta en el código. Observarás que al producirse un rollback no hay cambios en ninguna entidad.
 
 Desde postman, una petición para consumir el endpoint construido sería esta:
+
 <img width="416" alt="Postman" src="https://github.com/UnirCs/BBDD-PER8263-2324/assets/115072043/e3477489-3288-4425-b989-76f423e2160e">
 
 ## 4. Entrega
