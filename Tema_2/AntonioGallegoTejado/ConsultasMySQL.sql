@@ -16,7 +16,7 @@ inner join salaries on employees.emp_no = salaries.emp_no
 inner join dept_emp on employees.emp_no = dept_emp.emp_no
 inner join departments on dept_emp.dept_no = departments.dept_no
 where dept_name = 'Marketing'
-order by salaries.salary desc;
+order by salaries.salary desc
 limit 1 offset 1;
 
 --Número de contratados en un mes en concreto
