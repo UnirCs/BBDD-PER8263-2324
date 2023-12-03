@@ -1,0 +1,246 @@
+{
+	"info": {
+		"_postman_id": "e26281de-55f5-47dc-a04d-e3a681fdc0ed",
+		"name": "MySQL Employee API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31333090"
+	},
+	"item": [
+		{
+			"name": "Department",
+			"item": [
+				{
+					"name": "Get department",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/api/departments/Customer%20Service",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"departments",
+								"Customer%20Service"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Department by employee id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/api/departments/employee/110183",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"departments",
+								"employee",
+								"110183"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Department",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"deptNo\":\"d011\",\n    \"deptName\":\"Testtttttttt\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8088/api/departments/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"departments",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employee",
+			"item": [
+				{
+					"name": "Get employees by lastName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/api/employees?lastName=Ruiz",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"employees"
+							],
+							"query": [
+								{
+									"key": "lastName",
+									"value": "Ruiz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get employees by firstName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/api/employees/firstName/Maria",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"employees",
+								"firstName",
+								"Maria"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get employee with MaxSalary",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/api/employees/maxSalary/department/d001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"employees",
+								"maxSalary",
+								"department",
+								"d001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get employee hire date between",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/api/employees/hireDate/1987-09-25/1987-09-27",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"employees",
+								"hireDate",
+								"1987-09-25",
+								"1987-09-27"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"empNo\": 420,\r\n    \"birthDate\": \"1953-09-29\",\r\n    \"firstName\": \"Jonh\",\r\n    \"lastName\": \"Cena\",\r\n    \"gender\": \"M\",\r\n    \"hireDate\": \"1991-07-16\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8088/api/employees/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"employees",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"employeeId\": 10007,\r\n    \"departmentId\": \"d011\",\r\n    \"title\":\"Lleva-cafes\",\r\n    \"salary\": 10000,\r\n    \"fromDate\": \"2023-11-25\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/api/promotions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"promotions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
