@@ -1,0 +1,23 @@
+### Recuperar los empleados que tengan el apellido Ruiz
+GET http://localhost:8088/api/employees?lastName=Ruiz
+Accept: application/json
+
+### Buscar empleados por rango de fechas de nacimiento
+GET http://localhost:8088/api/employees?birthDateFrom=1980-01-01&birthDateTo=1980-12-31
+Accept: application/json
+
+### Buscar empleados por que el nombre contenga
+GET http://localhost:8088/api/employees/byFirstName?name=Hugo
+Accept: application/json
+
+### Obtener empleados por género
+GET http://localhost:8088/api/employees/byGender?gender=M
+Accept: application/json
+
+### Buscar empleados contratados después de una fecha específica
+GET http://localhost:8088/api/employees/hiredAfter?date=2000-01-01
+Accept: application/json
+
+### Encontrar empleados por apellido y ordenarlos por fecha de contratación
+GET http://localhost:8088/api/employees/byLastNameOrdered?lastName=Ruiz
+Accept: application/json
