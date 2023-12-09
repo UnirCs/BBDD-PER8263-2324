@@ -20,6 +20,6 @@ public interface DepartmentRepository extends JpaRepository<Department, String> 
     List<Department> findAllByOrderByDeptNameAsc();
 
     // Método para mostrar los departamentos que tienen menos de una cantidad de empleados
-    @Query("SELECT d FROM Department d WHERE SIZE(d.deptEmps) < :count")
-    List<Department> findDepartmentsWithLessThanXEmployees(int count);
+  //  @Query("SELECT d FROM Department d WHERE SIZE(d.deptEmps) < :count")
+  //  List<Department> findDepartmentsWithLessThanXEmployees(int count);
 }

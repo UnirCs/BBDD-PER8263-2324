@@ -23,7 +23,7 @@ public class Department {
 
     @Column(name = "dept_name", length = 40)
     private String deptName;
-
+/*
     @JsonIgnore
     @OneToMany(mappedBy = "department")
     private Set<DeptEmp> deptEmps;
@@ -31,4 +31,6 @@ public class Department {
     @JsonIgnore
     @OneToMany(mappedBy = "department")
     private Set<DeptManager> deptManagers;
+
+ */
 }

@@ -11,5 +11,5 @@ import java.util.Date;
 public interface DeptEmpRepository extends JpaRepository<DeptEmp, String> {
 
     // Método para buscar el departamento actual de un empleado por el id del empleado
-    DeptEmp findDeptEmpByEmpNoAndToDate(String empNo, Date toDate);
+   // DeptEmp findDeptEmpByEmpNoAndToDate(String empNo, Date toDate);
 }
