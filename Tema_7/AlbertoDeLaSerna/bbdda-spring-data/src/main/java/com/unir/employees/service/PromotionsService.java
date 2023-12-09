@@ -106,7 +106,6 @@ public class PromotionsService {
         newSalary.setEmployee(employee);
         newSalary.setSalary(promotionRequest.getSalary());
         newSalary.setFromDate(promotionRequest.getFromDate());
-        newSalary.setDeptNo(department.getDeptNo());
 
         newSalary.setToDate(dateTo);
 
@@ -136,8 +135,7 @@ public class PromotionsService {
 
         if (salary.getEmployee().getEmpNo().equals(promotionRequest.getEmployeeId())
                 && salary.getSalary().equals(promotionRequest.getSalary())
-                && strDate1.equals(strDate2)
-                && salary.getDeptNo().equals(department.getDeptNo())) {
+                && strDate1.equals(strDate2)) {
             throw new RuntimeException("El salario ya existe con los mismos datos que los recibidos en la entrada del método");
         }
 

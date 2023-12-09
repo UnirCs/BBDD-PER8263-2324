@@ -30,9 +30,7 @@ public class Salary {
 
     @Column(name = "salary")
     private Integer salary;
-
-    @Column(name = "dept_no")
-    private String deptNo;
+    
 }
 
 @Data
