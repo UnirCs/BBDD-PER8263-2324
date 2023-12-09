@@ -10,9 +10,6 @@ import java.util.List;
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, String> {
 
-    //Documentacion sobre Derivacion de consultas: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation
-    //Documentacion sobre consultas nativas: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.at-query
-
     // Método para buscar un departamento por id
     List<Department> findByDeptNo(String deptNo);
 
