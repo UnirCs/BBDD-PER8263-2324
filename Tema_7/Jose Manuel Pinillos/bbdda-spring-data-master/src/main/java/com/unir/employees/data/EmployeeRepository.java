@@ -12,6 +12,9 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 	// Método para buscar empleados por nombre
+	Employee findByEmpNo(int empNo);
+
+	// Método para buscar empleados por nombre
 	List<Employee> findByFirstName(String firstName);
 
 	// Método para buscar empleados por apellido

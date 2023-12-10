@@ -12,5 +12,5 @@ import java.util.Date;
 public interface TitleRepository extends JpaRepository<Title, String> {
 
     // Método para buscar el título por el id del empleado
-    Title findTitleByEmpNoAndToDate(String empNo, Date toDate);
+    Title findTitleByEmpNoAndToDate(Employee employee, Date toDate);
 }

@@ -15,7 +15,7 @@ public class PromotionsController {
     private final PromotionsService promotionsService;
 
     @PostMapping("/api/promotions")
-    public ResponseEntity<String> promote(@RequestBody PromotionRequest promotionRequest) {
+    public ResponseEntity<String> promote(@RequestBody PromotionRequest promotionRequest) throws Exception{
         return ResponseEntity.ok(promotionsService.promote(promotionRequest));
     }
 }

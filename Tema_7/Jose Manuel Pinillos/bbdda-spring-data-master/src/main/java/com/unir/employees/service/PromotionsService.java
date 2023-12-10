@@ -1,10 +1,7 @@
 package com.unir.employees.service;
 
 import com.unir.employees.data.*;
-import com.unir.employees.model.db.Department;
-import com.unir.employees.model.db.Employee;
-import com.unir.employees.model.db.Salary;
-import com.unir.employees.model.db.Title;
+import com.unir.employees.model.db.*;
 import com.unir.employees.model.request.PromotionRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.expression.ParseException;
@@ -13,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,18 +27,30 @@ public class PromotionsService {
 
     // Método para promocionar a un empleado
     @Transactional
-    public String promote(PromotionRequest promotionRequest) throws ParseException {
+    public String promote(PromotionRequest promotionRequest) throws Exception {
+
+        // Creamos las fecha  que representará a to_date
+        Date lastDate = formatter.parse("9999-01-01");
 
         int empNo;
-        Optional<Employee> employee;
+        Employee employee;
         String depNo;
-        Optional<Department> department;
-        Title title;
-        Salary salary;
+        Department department;
+
+        // Creamos los objetos que representarán el antiguo título, salario y departamento.
+        Title oldTitle;
+        Salary oldSalary;
+        DeptEmp oldDeptEmp;
+
+        // Creamos los objetos que representarán el nuevo título, salario y departamento.
+        Title newTitle = new Title();
+        Salary newSalary = new Salary();
+        DeptEmp newDeptEmp = new DeptEmp();
 
         // Se comprueba que el empleado existe
         try {
-            employee = employeeRepository.findById(promotionRequest.getEmployeeId());
+            empNo = promotionRequest.getEmployeeId();
+            employee = employeeRepository.findByEmpNo(empNo);
 
             if (employee == null) {
                 throw new Exception();
@@ -52,7 +62,7 @@ public class PromotionsService {
         // Se comprueba que el departamento existe
         try {
             depNo = promotionRequest.getDepartmentId();
-            department = departmentRepository.findById(depNo);
+            department = departmentRepository.findByDeptNo(depNo);
 
             if (department == null) {
                 throw new Exception();
@@ -61,7 +71,58 @@ public class PromotionsService {
             throw new RuntimeException("El departamento no existe");
         }
 
+        // Se comprueba que el empleado tiene título, salario y departamento
+        try {
 
+            oldTitle = titleRepository.findTitleByEmpNoAndToDate(employee,lastDate);
+            oldSalary = salaryRepository.findSalaryByEmpNoAndToDate(employee,lastDate);
+            oldDeptEmp = deptEmpRepository.findDeptEmpByEmployeeAndToDate(employee, lastDate);
+
+            if (oldTitle == null || oldSalary == null || oldDeptEmp == null) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("El empleado no puede promocionar");
+        }
+
+        //Actualizamos el atributo toDate del título
+        oldTitle.setToDate(promotionRequest.getFromDate());
+        titleRepository.save(oldTitle);
+
+        // Actualizamos el atributo toDate del salario
+        oldSalary.setToDate(promotionRequest.getFromDate());
+        salaryRepository.save(oldSalary);
+
+        // Actualizamos el atributo toDate del deptartamento
+        oldDeptEmp.setToDate(promotionRequest.getFromDate());
+        deptEmpRepository.save(oldDeptEmp);
+
+        if (promotionRequest.getSalary() > (oldSalary.getSalary() * 1.15)) {
+            throw new RuntimeException("El nuevo salario no puede superar un 15% del anterior");
+        }
+
+        // Actualizamos el objeto que representa al nuevo título
+        newTitle.setEmpNo(employee);
+        newTitle.setTitle(promotionRequest.getTitle());
+        newTitle.setFromDate(promotionRequest.getFromDate());
+        newTitle.setToDate(lastDate);
+
+        // Actualizamos el objeto que representa al nuevo salario
+        newSalary.setEmpNo(employee);
+        newSalary.setSalary(promotionRequest.getSalary());
+        newSalary.setFromDate(promotionRequest.getFromDate());
+        newSalary.setToDate(lastDate);
+
+        // Actualizamos el objeto que representa al nuevo departamento
+        newDeptEmp.setEmployee(employee);
+        newDeptEmp.setDepartment(department);
+        newDeptEmp.setFromDate(promotionRequest.getFromDate());
+        newDeptEmp.setToDate(lastDate);
+
+        // Guardamos los nuevos registros en la base de datos.
+        titleRepository.save(newTitle);
+        salaryRepository.save(newSalary);
+        deptEmpRepository.save(newDeptEmp);
 
         return "Promocionado :D";
     }

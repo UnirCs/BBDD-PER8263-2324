@@ -11,7 +11,7 @@ import java.util.List;
 public interface DepartmentRepository extends JpaRepository<Department, String> {
 
     // Método para buscar un departamento por id
-    List<Department> findByDeptNo(String deptNo);
+    Department findByDeptNo(String deptNo);
 
     // Método para buscar un departamento por nombre
     List<Department> findByDeptName(String deptName);
