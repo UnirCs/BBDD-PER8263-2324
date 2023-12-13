@@ -34,5 +34,5 @@ public class Salary {
 @Data
 class SalaryId implements java.io.Serializable {
 	private Integer empNo;
-	private java.sql.Date fromDate;
+	private Date fromDate;
 }
