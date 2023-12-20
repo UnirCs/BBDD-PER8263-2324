@@ -1,0 +1,36 @@
+### Recupera el departamento de finanzas
+GET http://localhost:8088/api/departments/finance
+Accept: application/json
+
+###Crear un departamente
+POST http://localhost:8088/api/departments/
+Content-Type: application/json
+
+{
+  "deptNo": "d999",
+  "deptName": "Finanzas"
+}
+
+### Buscar departamentos por nombre
+GET http://localhost:8088/api/departments/byName?name=Marketing
+Accept: application/json
+
+### Buscar departamentos con más de X empleados
+GET http://localhost:8088/api/departments/moreThanEmployees?count=50
+Accept: application/json
+
+### Buscar departamentos con menos de X empleados
+GET http://localhost:8088/api/departments/lessThanEmployees?count=10
+Accept: application/json
+
+### Buscar departamentos sin gerentes
+GET http://localhost:8088/api/departments/withoutManagers
+Accept: application/json
+
+### Buscar departamentos con un número específico de empleados
+GET http://localhost:8088/api/departments/exactEmployees?count=10
+Accept: application/json
+
+### Listar todos los departamentos en orden alfabético por nombre
+GET http://localhost:8088/api/departments/allOrdered
+Accept: application/json
