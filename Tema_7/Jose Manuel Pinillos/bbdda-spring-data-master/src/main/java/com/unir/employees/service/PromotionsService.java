@@ -48,40 +48,27 @@ public class PromotionsService {
         DeptEmp newDeptEmp = new DeptEmp();
 
         // Se comprueba que el empleado existe
-        try {
-            empNo = promotionRequest.getEmployeeId();
-            employee = employeeRepository.findByEmpNo(empNo);
+        empNo = promotionRequest.getEmployeeId();
+        employee = employeeRepository.findByEmpNo(empNo);
 
-            if (employee == null) {
-                throw new Exception();
-            }
-        } catch (Exception e) {
+        if (employee == null) {
             throw new RuntimeException("El empleado no existe");
         }
 
         // Se comprueba que el departamento existe
-        try {
-            depNo = promotionRequest.getDepartmentId();
-            department = departmentRepository.findByDeptNo(depNo);
+        depNo = promotionRequest.getDepartmentId();
+        department = departmentRepository.findByDeptNo(depNo);
 
-            if (department == null) {
-                throw new Exception();
-            }
-        } catch (Exception e) {
+        if (department == null) {
             throw new RuntimeException("El departamento no existe");
         }
 
         // Se comprueba que el empleado tiene título, salario y departamento
-        try {
+        oldTitle = titleRepository.findTitleByEmpNoAndToDate(employee,lastDate);
+        oldSalary = salaryRepository.findSalaryByEmpNoAndToDate(employee,lastDate);
+        oldDeptEmp = deptEmpRepository.findDeptEmpByEmployeeAndToDate(employee, lastDate);
 
-            oldTitle = titleRepository.findTitleByEmpNoAndToDate(employee,lastDate);
-            oldSalary = salaryRepository.findSalaryByEmpNoAndToDate(employee,lastDate);
-            oldDeptEmp = deptEmpRepository.findDeptEmpByEmployeeAndToDate(employee, lastDate);
-
-            if (oldTitle == null || oldSalary == null || oldDeptEmp == null) {
-                throw new Exception();
-            }
-        } catch (Exception e) {
+        if (oldTitle == null || oldSalary == null || oldDeptEmp == null) {
             throw new RuntimeException("El empleado no puede promocionar");
         }
 
