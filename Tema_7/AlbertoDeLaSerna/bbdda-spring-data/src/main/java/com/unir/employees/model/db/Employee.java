@@ -47,4 +47,13 @@ public class Employee {
 	@JsonIgnore
 	@OneToMany(mappedBy = "employee")
 	private Set<DeptManager> deptManagers;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "employee")
+	private Set<Salary> salary;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "employee")
+	private Set<Title> title;
 }
+

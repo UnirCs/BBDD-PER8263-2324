@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "500cf195-3a89-4de4-85c9-82363c7b8af1",
+		"name": "MySQL Employee API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11007319"
+	},
+	"item": [
+		{
+			"name": "Get employees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/employees/getEmployeesByLastName?lastName=Ruiz",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"employees",
+						"getEmployeesByLastName"
+					],
+					"query": [
+						{
+							"key": "lastName",
+							"value": "Ruiz"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get department",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/departments/getDepartmentByName/Customer%20Service",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"departments",
+						"getDepartmentByName",
+						"Customer%20Service"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Department",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"{\r",
+							"  \"deptNo\": \"d009\",\r",
+							"  \"deptName\": \"Customer Service\"\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"deptNo\":\"d011\",\n    \"deptName\":\"Test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/api/departments/createDepartment/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"departments",
+						"createDepartment",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"{\r",
+							"        \"empNo\": 1,\r",
+							"        \"birthDate\": \"1985-07-26\",\r",
+							"        \"firstName\": \"Xabier Mikel\",\r",
+							"        \"lastName\": \"Martín\",\r",
+							"        \"gender\": \"M\",\r",
+							"        \"hireDate\": \"202-11-19\"\r",
+							"    }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/employees/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"employees",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get employyes by firstName",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Employee",
+			"request": {
+				"method": "DELETE",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Departments",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Department By Name",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/departments/deleteDepartmentByName/Test%20Xabier",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"departments",
+						"deleteDepartmentByName",
+						"Test%20Xabier"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Departmens By Name Asc",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/departments/allByNameAsc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"departments",
+						"allByNameAsc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Departmens By Id Asc",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/departments/allByIdAsc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"departments",
+						"allByIdAsc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get More than X",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "GET http://localhost:8088/api/departments/moreThan?limit=50000",
+					"protocol": "GET http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"departments",
+						"moreThan"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "50000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Count By Gender",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
