@@ -679,9 +679,11 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
 
 
 
-- 8. ##### Obtener empleados cuya dirección sea o contenga ``Street``. [Revisa la documentación sobre queries sobre campos search-as-you-type](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/search-as-you-type.html)
+- 8. ##### Obtener empleados cuya dirección sea o contenga `Street`. [Revisa la documentación sobre queries sobre campos search-as-you-type](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/search-as-you-type.html)
 
      La consulta `multi_match` en Elasticsearch permite buscar un término en múltiples campos de un índice. Esta consulta es especialmente útil cuando tenemos datos similares repartidos en varios campos y queremos que una consulta busque en todos ellos.
+
+     Estas consultas pueden realizarse en una variedad de tipos de campos. Sin embargo, su uso es más común y efectivo en campos de `text` o `search_as_you_type`.
 
      
 
@@ -692,10 +694,14 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
      ```
 
      ```json
-     
+     {
          "query": {
-             "match": {
-                 "FirstName": "NATALIE"
+             "multi_match": {
+                 "query": "Street",
+                 "type": "bool_prefix",
+                 "fields": [
+                     "Address"
+                 ]
              }
          }
      }
@@ -703,7 +709,7 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
 
      
 
-     **<u>Resultado</u>**:
+     **<u>Resultado</u>**: (Mostramos solo el primer resultado devuelto)
 
      ```json
      {
@@ -717,27 +723,27 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
          },
          "hits": {
              "total": {
-                 "value": 1,
+                 "value": 1580,
                  "relation": "eq"
              },
-             "max_score": 8.804874,
+             "max_score": 1.0,
              "hits": [
                  {
                      "_index": "employees",
                      "_type": "_doc",
-                     "_id": "QKcRmIwB_L614K24A7lN",
-                     "_score": 8.804874,
+                     "_id": "kKcRmIwB_L614K24A7RL",
+                     "_score": 1.0,
                      "_source": {
-                         "FirstName": "NATALIE",
-                         "LastName": "SERVIS",
+                         "FirstName": "CIERRA",
+                         "LastName": "TOOLS",
                          "Designation": "Senior Software Engineer",
                          "Salary": "61000",
-                         "DateOfJoining": "2003-09-19",
-                         "Address": "34 Kingston St. El Dorado, AR 71730",
+                         "DateOfJoining": "2014-01-13",
+                         "Address": "8445 Green Street Morristown, NJ 07960",
                          "Gender": "Female",
                          "Age": 35,
-                         "MaritalStatus": "Unmarried",
-                         "Interests": "Guitar,Learning A Foreign Language,Blacksmithing,Embroidery,Collecting,Becoming A Child Advocate,Taxidermy"
+                         "MaritalStatus": "Married",
+                         "Interests": "R/C Boats,Dolls,Cloud Watching,Animals/pets/dogs,Crocheting,Casino Gambling"
                      }
                  }
              ]
@@ -747,13 +753,149 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
 
 
 
-- 9. ##### Obtener empleados cuya dirección sea o contenga ``wood``.
+- 9. ##### Obtener empleados cuya dirección sea o contenga `wood`.
+
+     Al igual que en la consulta anterior, realizaremos una consulta de tipo `multi_match`.
 
      
 
-- 10. ##### Obtener empleados interesados en ``Wrestling``.
+     A través del comando `GET` con las instrucciones en JSON:
+
+     ```http
+     GET {{elasticsearch-host}}/employees/_search
+     ```
+
+     ```json
+     {
+         "query": {
+             "multi_match": {
+                 "query": "wood",
+                 "type": "bool_prefix",
+                 "fields": [
+                     "Address"
+                 ]
+             }
+         }
+     }
+     ```
+
+     
+
+     **<u>Resultado</u>**: (Mostramos solo el primer resultado devuelto)
+
+     ```json
+     {
+         "took": 2,
+         "timed_out": false,
+         "_shards": {
+             "total": 1,
+             "successful": 1,
+             "skipped": 0,
+             "failed": 0
+         },
+         "hits": {
+             "total": {
+                 "value": 102,
+                 "relation": "eq"
+             },
+             "max_score": 1.0,
+             "hits": [
+                 {
+                     "_index": "employees",
+                     "_type": "_doc",
+                     "_id": "SacRmIwB_L614K24A7VL",
+                     "_score": 1.0,
+                     "_source": {
+                         "FirstName": "BETTINA",
+                         "LastName": "SIVIE",
+                         "Designation": "Senior Software Engineer",
+                         "Salary": "60000",
+                         "DateOfJoining": "2006-07-24",
+                         "Address": "127 Woodland Drive Stockbridge, GA 30281",
+                         "Gender": "Female",
+                         "Age": 32,
+                         "MaritalStatus": "Married",
+                         "Interests": "Beach/Sun tanning,Collecting Artwork,Playing music,Illusion,Train Spotting"
+                     }
+                 }
+             ]
+         }
+     }
+     ```
+
+
+
+- 10. ##### Obtener empleados interesados en `Wrestling`.
+
+      Al igual que en la consulta anterior, realizaremos una consulta de tipo `multi_match`.
 
       
+
+      A través del comando `GET` con las instrucciones en JSON:
+
+      ```http
+      GET {{elasticsearch-host}}/employees/_search
+      ```
+
+      ```json
+      {
+          "query": {
+              "multi_match": {
+                  "query": "Wrestling",
+                  "type": "bool_prefix",
+                  "fields": [
+                      "Interests"
+                  ]
+              }
+          }
+      }
+      ```
+
+      
+
+      **<u>Resultado</u>**: (Mostramos solo el primer resultado devuelto)
+
+      ```json
+      {
+          "took": 2,
+          "timed_out": false,
+          "_shards": {
+              "total": 1,
+              "successful": 1,
+              "skipped": 0,
+              "failed": 0
+          },
+          "hits": {
+              "total": {
+                  "value": 154,
+                  "relation": "eq"
+              },
+              "max_score": 1.0,
+              "hits": [
+                  {
+                      "_index": "employees",
+                      "_type": "_doc",
+                      "_id": "macRmIwB_L614K24A7RL",
+                      "_score": 1.0,
+                      "_source": {
+                          "FirstName": "MILAGRO",
+                          "LastName": "CUTCHINS",
+                          "Designation": "Senior Software Engineer",
+                          "Salary": "67000",
+                          "DateOfJoining": "2007-01-25",
+                          "Address": "8772 Wentworth Dr. Mcallen, TX 78501",
+                          "Gender": "Female",
+                          "Age": 33,
+                          "MaritalStatus": "Unmarried",
+                          "Interests": "Socializing with friends/neighbors,Wrestling,Pyrotechnics,Collecting Swords,Soap Making,Piano,Marksmanship"
+                      }
+                  }
+              ]
+          }
+      }
+      ```
+
+
 
 - 11. ##### Obtener el número de hombres y mujeres interesad@s en ``Wrestling``.[Revisa la documentación sobre term aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/search-aggregations-bucket-terms-aggregation.html)
 
