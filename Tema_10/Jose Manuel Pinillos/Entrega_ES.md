@@ -692,7 +692,7 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
      ```
 
      ```json
-     {
+     
          "query": {
              "match": {
                  "FirstName": "NATALIE"
