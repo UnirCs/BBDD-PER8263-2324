@@ -982,15 +982,112 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
 
 - 12. ##### En base a la consulta anterior, obtener la edad media de cada grupo (grupo hombres y grupo mujeres). [Revisa la documentación sobre sub-agregaciones](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/search-aggregations.html) y [sobre la agregación avg](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/search-aggregations-metrics-avg-aggregation.html)
 
-      Las agregaciones métricas en Elasticsearch son operaciones que calculan una métrica única, usualmente numérica, sobre los valores de un campo determinado. Estas agregaciones son usadas para obtener información resumida, como promedios, sumas, mínimos y máximos, sobre un conjunto de datos. Las agregaciones métricas son ideales para analizar y entender mejor las características de tus datos.
+      Las **agregaciones métricas** en Elasticsearch son operaciones que calculan una métrica única, usualmente numérica, sobre los valores de un campo determinado. Estas agregaciones son usadas para obtener información resumida, como promedios, sumas, mínimos y máximos, sobre un conjunto de datos. Las agregaciones métricas son ideales para analizar y entender mejor las características de tus datos.
 
       **Tipos Principales**:
 
-      - **Avg`**: Calcula el promedio de los valores numéricos de un campo.
+      - **`avg`**: Calcula el promedio de los valores numéricos de un campo.
 
         Solo se aplica a campos que tienen valores numéricos (como `integer`, `float`, `long`, etc.).
 
-      - 
+      - **`sum`**: Suma todos los valores numéricos de un campo.
+      
+      - **`min`**: Encuentran el valor mínimo en un conjunto de valores numéricos.
+      
+      - **`max`**: Encuentran el valor máximo en un conjunto de valores numéricos.
+      
+      
+      
+      Las **sub-agregaciones** en Elasticsearch permiten realizar agregaciones anidadas, lo que significa que podemos aplicar una agregación a los *buckets* creados por otra agregación. Esta capacidad es extremadamente útil para realizar análisis de datos complejos, ya que te permite desglosar los datos en categorías más específicas y realizar cálculos adicionales dentro de cada categoría.
+      
+      **Funcionamiento**:
+      
+      1. **Crear *Buckets* con una Agregación Primaria**: Empezamos con una agregación (como `terms`, `date_histogram`, `range`, etc.) que divide los datos en *buckets*.
+      2. **Aplicar Agregaciones Adicionales a Cada *Bucket***: Dentro de cada *bucket*, podemos aplicar una o más sub-agregaciones para calcular métricas como promedios (`avg`), sumas (`sum`), mínimos (`min`), máximos (`max`), etc., o incluso crear *sub-buckets* adicionales.
+      
+      
+      
+      A través del comando `GET` con las instrucciones en JSON:
+      
+      ```http
+      GET {{elasticsearch-host}}/employees/_search
+      ```
+      
+      ```json
+      {
+          "size":0,
+          "query": {
+              "multi_match": {
+                  "query": "Wrestling",
+                  "type": "bool_prefix",
+                  "fields": [
+                      "Interests"
+                  ]
+              }
+          },
+          "aggs": {
+              "Generos": {
+                  "terms": {
+                      "field": "Gender"
+                  },
+                  "aggs": {
+                      "Edad Media": {
+                          "avg": {
+                              "field": "Age"
+                          }
+                      }
+                  }
+              }
+          }
+      }
+      ```
+      
+      
+      
+      **<u>Resultado</u>**:
+      
+      ```json
+      {
+          "took": 2,
+          "timed_out": false,
+          "_shards": {
+              "total": 1,
+              "successful": 1,
+              "skipped": 0,
+              "failed": 0
+          },
+          "hits": {
+              "total": {
+                  "value": 154,
+                  "relation": "eq"
+              },
+              "max_score": null,
+              "hits": []
+          },
+          "aggregations": {
+              "Generos": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                      {
+                          "key": "Female",
+                          "doc_count": 80,
+                          "Edad Media": {
+                              "value": 30.65
+                          }
+                      },
+                      {
+                          "key": "Male",
+                          "doc_count": 74,
+                          "Edad Media": {
+                              "value": 30.33783783783784
+                          }
+                      }
+                  ]
+              }
+          }
+      }
+      ```
 
 
 
