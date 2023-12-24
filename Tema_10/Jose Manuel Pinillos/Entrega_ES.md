@@ -1093,7 +1093,88 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
 
 - 13. ##### Obtener el número de empleados en función de los siguientes tramos de salario: menor de 60.000 dólares (``tramo 1``), entre 60.000 dólares y 67.000 dólares (``tramo 2``) y superior a 67.000 dólares (``tramo 3``). [Revisa la documentación sobre range aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/search-aggregations-bucket-range-aggregation.html)
 
+      Las **agregaciones de rango (`range aggregations`)** en Elasticsearch permiten agrupar documentos en diferentes *buckets* basándose en rangos de valores numéricos, fechas u otros tipos de datos que admitan un orden. Son muy útiles para entender cómo se distribuyen los datos a través de diferentes intervalos.
       
+      **Funcionamiento de las Agregaciones de Rango**:
+      
+      1. **Definir Rangos**: Especificar los rangos para los cuales se quiere agrupar los documentos. Cada rango define un *bucket*.
+      2. **Aplicar a Campos Adecuados**: Pueden ser aplicadas a campos numéricos, de fecha, o cualquier otro tipo de campo que tenga un sentido de orden.
+      3. **Resultados en *Buckets***: Cada *bucket* contiene todos los documentos cuyos valores en el campo especificado caen dentro del rango definido.
+      
+      
+      
+      A través del comando `GET` con las instrucciones en JSON:
+      
+      ```http
+      GET {{elasticsearch-host}}/employees/_search
+      ```
+      
+      ```json
+      {
+          "size":0,
+          "aggs": {
+              "Rangos de salario": {
+                  "range": {
+                      "field": "Salary",
+                      "ranges": [
+                          {"key": "Menor a 60000", "to": 60000},
+                          {"key": "Entre 60000 y 67000", "from": 60000, "to": 67000},
+                          {"key": "Superior a 67000", "from": 67000}
+                      ]
+                  }
+              }
+          }
+      }
+      ```
+      
+      
+      
+      **<u>Resultado</u>**:
+      
+      ```json
+      {
+          "took": 2,
+          "timed_out": false,
+          "_shards": {
+              "total": 1,
+              "successful": 1,
+              "skipped": 0,
+              "failed": 0
+          },
+          "hits": {
+              "total": {
+                  "value": 9999,
+                  "relation": "eq"
+              },
+              "max_score": null,
+              "hits": []
+          },
+          "aggregations": {
+              "Rangos de salario": {
+                  "buckets": [
+                      {
+                          "key": "Menor a 60000",
+                          "to": 60000.0,
+                          "doc_count": 3872
+                      },
+                      {
+                          "key": "Entre 60000 y 67000",
+                          "from": 60000.0,
+                          "to": 67000.0,
+                          "doc_count": 4020
+                      },
+                      {
+                          "key": "Superior a 67000",
+                          "from": 67000.0,
+                          "doc_count": 2107
+                      }
+                  ]
+              }
+          }
+      }
+      ```
+
+
 
 - 14. ##### En base a la consulta anterior, para cada tramo, hallar el número de empleados que están casados y no casados.
 
