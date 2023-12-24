@@ -897,13 +897,102 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
 
 
 
-- 11. ##### Obtener el número de hombres y mujeres interesad@s en ``Wrestling``.[Revisa la documentación sobre term aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/search-aggregations-bucket-terms-aggregation.html)
+- 11. ##### Obtener el número de hombres y mujeres interesad@s en `Wrestling`.[Revisa la documentación sobre term aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/search-aggregations-bucket-terms-aggregation.html)
+
+      La agregación `terms` en Elasticsearch es una de las más comunes y útiles para crear *buckets* de documentos basados en los términos únicos de un campo específico. Esencialmente, esta agregación permite agrupar datos según los valores distintos de un campo y contar cuántos documentos hay en cada grupo.
+
+      **Funcionamiento Básico**:
+
+      - **Agrupa Documentos:** La agregación `terms` agrupa los documentos en buckets basados en los términos únicos encontrados en un campo especificado.
+      - **Conteo de Documentos:** Cada bucket proporciona el conteo de cuántos documentos contienen ese término específico.
+      - **Aplicaciones Comunes:** Es útil para contar la ocurrencia de términos, como categorías de productos, etiquetas de blogs, localizaciones geográficas, etc.
 
       
+
+      A través del comando `GET` con las instrucciones en JSON:
+
+      ```http
+      GET {{elasticsearch-host}}/employees/_search
+      ```
+
+      ```json
+      {
+          "size":0, // Hacemos que el número de hits sea 0 para que solo nos muestre los valores encontrados.
+          "query": {
+              "multi_match": {
+                  "query": "Wrestling",
+                  "type": "bool_prefix",
+                  "fields": [
+                      "Interests"
+                  ]
+              }
+          },
+          "aggs": {
+              "Generos": {
+                  "terms": {
+                      "field": "Gender"
+                  }
+              }
+          }
+      }
+      ```
+
+      
+
+      **<u>Resultado</u>**:
+
+      ```json
+      {
+          "took": 2,
+          "timed_out": false,
+          "_shards": {
+              "total": 1,
+              "successful": 1,
+              "skipped": 0,
+              "failed": 0
+          },
+          "hits": {
+              "total": {
+                  "value": 154,
+                  "relation": "eq"
+              },
+              "max_score": null,
+              "hits": []
+          },
+          "aggregations": {
+              "Generos": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                      {
+                          "key": "Female",
+                          "doc_count": 80
+                      },
+                      {
+                          "key": "Male",
+                          "doc_count": 74
+                      }
+                  ]
+              }
+          }
+      }
+      ```
+
+
 
 - 12. ##### En base a la consulta anterior, obtener la edad media de cada grupo (grupo hombres y grupo mujeres). [Revisa la documentación sobre sub-agregaciones](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/search-aggregations.html) y [sobre la agregación avg](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/search-aggregations-metrics-avg-aggregation.html)
 
-      
+      Las agregaciones métricas en Elasticsearch son operaciones que calculan una métrica única, usualmente numérica, sobre los valores de un campo determinado. Estas agregaciones son usadas para obtener información resumida, como promedios, sumas, mínimos y máximos, sobre un conjunto de datos. Las agregaciones métricas son ideales para analizar y entender mejor las características de tus datos.
+
+      **Tipos Principales**:
+
+      - **Avg`**: Calcula el promedio de los valores numéricos de un campo.
+
+        Solo se aplica a campos que tienen valores numéricos (como `integer`, `float`, `long`, etc.).
+
+      - 
+
+
 
 - 13. ##### Obtener el número de empleados en función de los siguientes tramos de salario: menor de 60.000 dólares (``tramo 1``), entre 60.000 dólares y 67.000 dólares (``tramo 2``) y superior a 67.000 dólares (``tramo 3``). [Revisa la documentación sobre range aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/search-aggregations-bucket-range-aggregation.html)
 
