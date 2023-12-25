@@ -1178,12 +1178,144 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
 
 - 14. ##### En base a la consulta anterior, para cada tramo, hallar el número de empleados que están casados y no casados.
 
+      Para realizar esta consulta realizaremos una **sub-agregaciónes** a la consulta anterior.
       
+      
+      
+      A través del comando `GET` con las instrucciones en JSON:
+      
+      ```http
+      GET {{elasticsearch-host}}/employees/_search
+      ```
+      
+      ```json
+      {
+          "size":0,
+          "aggs": {
+              "Rangos de salario": {
+                  "range": {
+                      "field": "Salary",
+                      "ranges": [
+                          {"key": "Menor a 60000", "to": 60000},
+                          {"key": "Entre 60000 y 67000", "from": 60000, "to": 670000},
+                          {"key": "Superior a 67000", "from": 67000}
+                      ]
+                  },
+                  "aggs": {
+                      "Estado civil": {
+                          "terms": {
+                              "field": "MaritalStatus"
+                          }
+                      }
+                  }
+              }
+          }
+      }
+      ```
+      
+      
+      
+      **<u>Resultado</u>**:
+      
+      ```json
+      {
+          "took": 3,
+          "timed_out": false,
+          "_shards": {
+              "total": 1,
+              "successful": 1,
+              "skipped": 0,
+              "failed": 0
+          },
+          "hits": {
+              "total": {
+                  "value": 9999,
+                  "relation": "eq"
+              },
+              "max_score": null,
+              "hits": []
+          },
+          "aggregations": {
+              "Rangos de salario": {
+                  "buckets": [
+                      {
+                          "key": "Menor a 60000",
+                          "to": 60000.0,
+                          "doc_count": 3872,
+                          "Estado civil": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                  {
+                                      "key": "Unmarried",
+                                      "doc_count": 1945
+                                  },
+                                  {
+                                      "key": "Married",
+                                      "doc_count": 1927
+                                  }
+                              ]
+                          }
+                      },
+                      {
+                          "key": "Entre 60000 y 67000",
+                          "from": 60000.0,
+                          "to": 670000.0,
+                          "doc_count": 6127,
+                          "Estado civil": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                  {
+                                      "key": "Married",
+                                      "doc_count": 3095
+                                  },
+                                  {
+                                      "key": "Unmarried",
+                                      "doc_count": 3032
+                                  }
+                              ]
+                          }
+                      },
+                      {
+                          "key": "Superior a 67000",
+                          "from": 67000.0,
+                          "doc_count": 2107,
+                          "Estado civil": {
+                              "doc_count_error_upper_bound": 0,
+                              "sum_other_doc_count": 0,
+                              "buckets": [
+                                  {
+                                      "key": "Married",
+                                      "doc_count": 1071
+                                  },
+                                  {
+                                      "key": "Unmarried",
+                                      "doc_count": 1036
+                                  }
+                              ]
+                          }
+                      }
+                  ]
+              }
+          }
+      }
+      ```
+
+
 
 ### Parte VI) Crear otro índice y modificar el alias
-- 1) Crea un nuevo índice de la misma forma que hiciste al principio, pero ahora llámalo ``employees-v2`` y mete en él todos los datos del fichero de prueba. Modifica el alias ``employees-alias`` que creaste antes para que apunte tanto al índice ``employees`` original como al nuevo ``employees-v2``. Puedes comprobar que lo has hecho correctamente ejecutando la operación "Obtener todos los alias" de la colección de Postman.
-- 2) Realiza alguna de las consultas anteriores. ¿Qué observas?
-- 3) Elimina ``employees`` del conjunto de índices a los que hace referencia el alias.
+- 1. Crea un nuevo índice de la misma forma que hiciste al principio, pero ahora llámalo ``employees-v2`` y mete en él todos los datos del fichero de prueba. Modifica el alias ``employees-alias`` que creaste antes para que apunte tanto al índice ``employees`` original como al nuevo ``employees-v2``. Puedes comprobar que lo has hecho correctamente ejecutando la operación "Obtener todos los alias" de la colección de Postman.
+
+     
+
+- 2. Realiza alguna de las consultas anteriores. ¿Qué observas?
+
+     
+
+- 3. Elimina ``employees`` del conjunto de índices a los que hace referencia el alias.
+
+     
 
 ## 2. Entrega
 
