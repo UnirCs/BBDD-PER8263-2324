@@ -1305,9 +1305,65 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
 
 
 ### Parte VI) Crear otro índice y modificar el alias
-- 1. Crea un nuevo índice de la misma forma que hiciste al principio, pero ahora llámalo ``employees-v2`` y mete en él todos los datos del fichero de prueba. Modifica el alias ``employees-alias`` que creaste antes para que apunte tanto al índice ``employees`` original como al nuevo ``employees-v2``. Puedes comprobar que lo has hecho correctamente ejecutando la operación "Obtener todos los alias" de la colección de Postman.
+- 1. Crea un nuevo índice de la misma forma que hiciste al principio, pero ahora llámalo `employees-v2` mete en él todos los datos del fichero de prueba. Modifica el alias ``employees-alias`` que creaste antes para que apunte tanto al índice ``employees`` original como al nuevo ``employees-v2``. Puedes comprobar que lo has hecho correctamente ejecutando la operación "Obtener todos los alias" de la colección de Postman.
 
      
+
+     - Creamos el nuevo índice `employees-v2`:
+
+       ```http
+       PUT {{elasticsearch-host}}/employees-v2
+       ```
+
+       ```json
+       {
+          "mappings":{
+             "properties":{
+                "Address":{
+                   "type":"search_as_you_type"
+                },
+                "Age":{
+                   "type":"integer"
+                },
+                "DateOfJoining":{
+                   "type":"date",
+                   "format":"yyyy-MM-dd"
+                },
+                "Designation":{
+                   "type":"keyword"
+                },
+                "FirstName":{
+                   "type":"text"
+                },
+                "Gender":{
+                   "type":"keyword"
+                },
+                "Interests":{
+                   "type":"text"
+                },
+                "LastName":{
+                   "type":"text"
+                },
+                "MaritalStatus":{
+                   "type":"keyword"
+                },
+                "Salary":{
+                   "type":"double"
+                }
+             }
+          }
+       }
+       ```
+
+       
+
+     - Introduccimos los datos en el fichero del fichero de prueba:
+
+       ```
+       -XPUT 'https://3j4sixnnv0:plpjsn00jd@unir-cluster-4875094071.eu-west-1.bonsaisearch.net:443/_bulk' --data-binary @Employees_raw.json -H 'Content-Type: application/json' 
+       ```
+
+       
 
 - 2. Realiza alguna de las consultas anteriores. ¿Qué observas?
 
