@@ -1502,15 +1502,61 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
        ```
      
        
+       
+       Observamos como cuando realizamos una consulta en Elasticsearch que apunta a más de un índice, se ejecuta la consulta en todos los índices a los que hace referencia el alias.
+       
+       En nuestro caso, como el alias apuntaba a dos índices `employees` y `employees-v2`, la consulta se realiza sobre estos dos índices, lo que conlleva que la consulta se realice en los *shards* de los índices, en nuestro caso 2.
+       
+       Esto se puede observar linea 5 del código del resultado.
      
      
 
 - 3. Elimina ``employees`` del conjunto de índices a los que hace referencia el alias.
 
+     ```http
+     GET {{elasticsearch-host}}/_alias
+     ```
      
-
-## 2. Entrega
-
-Crea una carpeta con tu nombre y apellidos dentro de ``Tema_10``. Deberás incluir :
-
-- Un archivo ``Entrega_ES.md`` con los comandos cURL obtenidos a través de Postman.
+     
+     
+     **<u>Resultado</u>**:
+     
+     ```json
+     {
+         "employees-v2": {
+             "aliases": {
+                 "employees-alias": {}
+             }
+         },
+         "employees": {
+             "aliases": {
+                 "employees-alias": {}
+             }
+         }
+     }
+     ```
+     
+     
+     
+     Comprobamos que el alias se ha eliminado correctamente:
+     
+     ```http
+     GET {{elasticsearch-host}}/_alias
+     ```
+     
+     
+     
+     **<u>Resultado</u>**:
+     
+     ```json
+     {
+         "employees-v2": {
+             "aliases": {
+                 "employees-alias": {}
+             }
+         },
+         "employees": {
+             "aliases": {}
+         }
+     }
+     ```
