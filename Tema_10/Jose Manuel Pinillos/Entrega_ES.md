@@ -1514,7 +1514,7 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
 - 3. Elimina ``employees`` del conjunto de índices a los que hace referencia el alias.
 
      ```http
-     GET {{elasticsearch-host}}/_alias
+     POST {{elasticsearch-host}}/_aliases
      ```
      
      
@@ -1523,16 +1523,13 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
      
      ```json
      {
-         "employees-v2": {
-             "aliases": {
-                 "employees-alias": {}
-             }
-         },
-         "employees": {
-             "aliases": {
-                 "employees-alias": {}
+       "actions": [
+         { "remove": {
+             "index": "employees",
+             "alias": "employees-alias"
              }
          }
+       ]
      }
      ```
      
