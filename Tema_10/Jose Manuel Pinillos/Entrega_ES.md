@@ -1357,12 +1357,22 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
 
        
 
-     - Introduccimos los datos en el fichero del fichero de prueba:
+     - Inserción de datos en el nuevo índice `employees-v2`:
 
-       ```c
-       curl -XPUT 'https://3j4sixnnv0:plpjsn00jd@unir-cluster-4875094071.eu-west-1.bonsaisearch.net:443/_bulk' --data-binary @Employees_raw.json -H 'Content-Type: application/json'
+       Para realizar la insercción de datos en el nuevo índice, lo primero que debemos realizar es la modificación del fichero para indicarle en que índice debe insertar los datos:
+       
+       ```json
+       {"index":{"_index":"employees-v2"}}
        ```
-
+       
+       
+       
+       Seguidamente ejecutaremos el código desde el terminal:
+       
+       ```c
+       curl -XPUT 'https://3j4sixnnv0:plpjsn00jd@unir-cluster-4875094071.eu-west-1.bonsaisearch.net:443/_bulk' --data-binary @EmployeesV2_raw.json -H 'Content-Type: application/json'
+       ```
+       
        
 
 - 2. Realiza alguna de las consultas anteriores. ¿Qué observas?
