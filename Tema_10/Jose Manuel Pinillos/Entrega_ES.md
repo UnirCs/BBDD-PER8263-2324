@@ -1374,9 +1374,135 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
        ```
        
        
+       
+     - Modificamos el alias `employees-alias` para que apunte a los índices `employees` y `employees-v2`.
+     
+       ```http
+       POST {{elasticsearch-host}}/_aliases
+       ```
+     
+       ```json
+       {
+         "actions": [
+           {
+               "add": {
+               "index": "employees",
+               "alias": "employees-alias"
+               }
+           },
+           {
+               "add": {
+               "index": "employees-v2",
+               "alias": "employees-alias"
+               }
+           }
+         ]
+       }
+       ```
+       
+       
+       
+     - Comprobamos que el alias se ha modificado correctamente:
+     
+       ```http
+       GET {{elasticsearch-host}}/_alias
+       ```
+     
+       
+       
+       **<u>Resultado</u>**:
+       
+       ```json
+       {
+           "employees-v2": {
+               "aliases": {
+                   "employees-alias": {}
+               }
+           },
+           "employees": {
+               "aliases": {
+                   "employees-alias": {}
+               }
+           }
+       }
+       ```
+       
+
+  
 
 - 2. Realiza alguna de las consultas anteriores. ¿Qué observas?
 
+     - **Empleados cuyo puesto es "Software Engineer"**:
+     
+       ```http
+       GET {{elasticsearch-host}}/employees-alias/_search
+       ```
+     
+       ```json
+       {
+           "size": 0,
+           "query": {
+               "term": {
+                   "Designation": {
+                       "value": "Software Engineer"
+                   }
+               }
+           }
+       }
+       ```
+     
+       
+     
+       **<u>Resultado actual</u>**:
+     
+       ```json
+       {
+           "took": 1,
+           "timed_out": false,
+           "_shards": {
+               "total": 2,
+               "successful": 2,
+               "skipped": 0,
+               "failed": 0
+           },
+           "hits": {
+               "total": {
+                   "value": 8528,
+                   "relation": "eq"
+               },
+               "max_score": null,
+               "hits": []
+           }
+       }
+       ```
+     
+       
+     
+       **<u>Resultado anterior</u>**:
+     
+       ```json
+       {
+           "took": 1,
+           "timed_out": false,
+           "_shards": {
+               "total": 1,
+               "successful": 1,
+               "skipped": 0,
+               "failed": 0
+           },
+           "hits": {
+               "total": {
+                   "value": 4264,
+                   "relation": "eq"
+               },
+               "max_score": null,
+               "hits": []
+           }
+       }
+       ```
+     
+       
+     
      
 
 - 3. Elimina ``employees`` del conjunto de índices a los que hace referencia el alias.
