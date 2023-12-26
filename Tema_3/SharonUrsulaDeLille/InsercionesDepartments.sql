@@ -1,0 +1,1 @@
+SELECT * FROM departments d WHERE d.dept_no BETWEEN 'd010' AND 'd025';
