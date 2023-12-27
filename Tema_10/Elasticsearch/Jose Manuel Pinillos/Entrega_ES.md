@@ -1,7 +1,7 @@
 # Consultas con Elasticsearch
 
 Con este ejercicio trataremos de asimilar los conceptos estudiados en clase sobre los tipos de datos y operaciones en Elasticsearch.
-Deberás crear un clúster de prueba tal como se indica en [estas instrucciones](elasticsearch-operations-postman/Readme.md) e insertar los datos de prueba que se presentan. Encontrarás también una colección de Postman que puede ser de gran ayuda a la hora de realizar el ejercicio y trabajar con Elasticsearch en general.
+Deberás crear un clúster de prueba tal como se indica en [estas instrucciones](Elasticsearch/elasticsearch-operations-postman/Readme.md) e insertar los datos de prueba que se presentan. Encontrarás también una colección de Postman que puede ser de gran ayuda a la hora de realizar el ejercicio y trabajar con Elasticsearch en general.
 Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/query-dsl.html).
 
 ## 1. Ejercicio
@@ -1359,7 +1359,7 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
 
      - Inserción de datos en el nuevo índice `employees-v2`:
 
-       Para realizar la insercción de datos en el nuevo índice, lo primero que debemos realizar es la modificación del fichero para indicarle en que índice debe insertar los datos:
+       Para realizar la inserción de datos en el nuevo índice, lo primero que debemos realizar es la modificación del fichero [EmployeesV2_raw](Elasticsearch\elasticsearch-operations-postman\EmployeesV2_raw.json) para indicarle en que índice debe insertar los datos:
        
        ```json
        {"index":{"_index":"employees-v2"}}
@@ -1375,7 +1375,7 @@ Recuerda hacer uso de la [documentación](https://www.elastic.co/guide/en/elasti
        
        
        
-     - Modificamos el alias `employees-alias` para que apunte a los índices `employees` y `employees-v2`.
+     - Modificamos el alias `employees-alias` para que apunte a los índices `employees` y `employees-v2`.
      
        ```http
        POST {{elasticsearch-host}}/_aliases
