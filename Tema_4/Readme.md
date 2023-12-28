@@ -31,9 +31,9 @@ Hibernate es un marco de trabajo (framework) para el mapeo objeto-relacional (OR
 ## 3. Ejercicio
 1. Revisa el [código de apoyo](https://github.com/UnirCs/bbdda-hibernate) y la clase en la que se explica, la [documentación de JPA](https://jakarta.ee/specifications/persistence/3.0/) y la de [Hibernate](https://docs.jboss.org/hibernate/orm/6.3/introduction/html_single/Hibernate_Introduction.html).
 2. Completa las entidades JPA que faltan en el proyecto de apoyo. Deberás añadir el código correspondiente para las tablas ``Salary`` y ``Title`` así como modificar otras si lo crees conveniente.
-3. Modifica los DAOs ``EmployeesDAO`` y ``DepartmentsDAO``. Incluye todas las consultas que realizaste en la actividad 1 (para MySQL) y comprueba que devuelven los mismos resultados que si se ejecutasen en DataGrip.
+3. Modifica los DAOs ``EmployeesDAO`` y ``DepartmentsDAO``. Incluye todas las consultas que realizaste en la actividad 2 (para MySQL) y comprueba que devuelven los mismos resultados que si se ejecutasen en DataGrip.
 
-## 3. Entrega
+## 4. Entrega
 
 Crea una carpeta con tu nombre y apellidos dentro de ``Tema_4``. Deberás incluir :
 
