@@ -6,13 +6,13 @@ import lombok.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "titles")
-@IdClass(TitlesId.class)
+@Table(name = "salaries")
+@IdClass(SalariesId.class)
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Title {
+public class Salary {
     @Id
     @ManyToOne
     @JoinColumn(name = "emp_no")
@@ -23,19 +23,20 @@ public class Title {
     @Column(name = "from_date")
     private Date fromDate;
 
-    @Id
-    @Column(name = "title")
-    private String title;
-
     @Temporal(TemporalType.DATE)
     @Column(name = "to_date")
     private Date toDate;
+
+    @Column(name = "salary")
+    private Integer salary;
+
+    @Column(name = "title")
+    private String title;
 }
 
 @Data
-class TitlesId implements java.io.Serializable {
+class SalariesId implements java.io.Serializable {
 
     private Integer empNo;
     private Date fromDate;
-    private String title;
 }

@@ -6,26 +6,27 @@ import lombok.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "titles")
-@IdClass(TitlesId.class)
+@Table(name = "dept_manager")
+@IdClass(DeptManagerId.class)
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Title {
+public class DeptManager {
+
     @Id
     @ManyToOne
     @JoinColumn(name = "emp_no")
-    private Employee empNo;
+    private Employee employee;
 
     @Id
+    @ManyToOne
+    @JoinColumn(name = "dept_no")
+    private Department department;
+
     @Temporal(TemporalType.DATE)
     @Column(name = "from_date")
     private Date fromDate;
-
-    @Id
-    @Column(name = "title")
-    private String title;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "to_date")
@@ -33,9 +34,7 @@ public class Title {
 }
 
 @Data
-class TitlesId implements java.io.Serializable {
-
-    private Integer empNo;
-    private Date fromDate;
-    private String title;
+class DeptManagerId implements java.io.Serializable {
+    private Integer employee;
+    private String department;
 }
