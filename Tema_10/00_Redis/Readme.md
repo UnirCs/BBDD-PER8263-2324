@@ -30,6 +30,7 @@ Si deseas ir más allá del ejercicio y quieres aprender más sobre Redis, puede
 
 ### Parte III) Configuración del microservicio para que use Redis
 - 1) Debemos modificar el fichero yml de configuración del microservicio. Concretamente, añadiremos la siguiente configuración bajo la clave ``spring``:
+
     ```yml
       cache:
         type: redis
@@ -39,6 +40,7 @@ Si deseas ir más allá del ejercicio y quieres aprender más sobre Redis, puede
           time-to-live: 60000
     ```
     Con esto, indicamos que el microservicio usará Redis como caché, que la caché está en el mismo host que el microservicio y que el puerto en el que escucha es el 6379. Además, indicamos que el tiempo de vida de los elementos de la caché es de 60.000 milisegundos (1 minuto). El código completo del fichero ``application.yml`` debería ser el siguiente:
+
     ```yml
         ## Configuracion de Spring
         spring:
@@ -79,7 +81,7 @@ Si deseas ir más allá del ejercicio y quieres aprender más sobre Redis, puede
         	}
         }
     ```
-  Además, haremos que la clase Department implemente la interfaz Serializable. Esto es necesario para que Spring pueda serializar los objetos de tipo Department y almacenarlos en Redis.
+  Además, haremos que la clase Department implemente la interfaz Serializable. Esto es necesario para que Spring pueda [serializar](https://hazelcast.com/glossary/serialization/) los objetos de tipo Department y almacenarlos en Redis.
     ```java
         @Entity
         @Table(name = "departments")
