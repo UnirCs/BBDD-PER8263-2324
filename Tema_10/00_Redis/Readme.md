@@ -4,6 +4,8 @@ Con este ejercicio buscamos hacer uso de una caché en un microservicio que est�
 
 Hablamos del que implementamos en ejercicio opcional del tema 5, que permitía obtener información sobre empleados de una empresa.
 
+Si deseas ir más allá del ejercicio y quieres aprender más sobre Redis, puedes visitar [este artículo de Medium](https://medium.com/simform-engineering/spring-boot-caching-with-redis-1a36f719309f).
+
 ## 1. Ejercicio
 
 ### Parte I) Instalación de Redis
@@ -11,6 +13,7 @@ Hablamos del que implementamos en ejercicio opcional del tema 5, que permitía o
    ```
    docker pull redis
    ```
+  
 - 2) Una vez descargada la imagen, crea un contenedor con ella. Para ello, ejecuta el siguiente comando:
     ```
     docker run --name redis-bbdda -p 6379:6379 -d redis
