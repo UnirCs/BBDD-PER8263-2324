@@ -15,3 +15,8 @@ Vamos a continuar con el código del ejercicio opcional del Tema 5 y añadiremos
 
 Con [este ejercicio](https://github.com/UnirCs/BBDD-PER8263-2324/blob/master/Tema_10/00_DynamoDB/Readme.md) trataremos de asimilar los conceptos estudiados en clase sobre DynamoDB.
 Es un ejercicio sencillo, de nivel introductorio, en el que se pide crear una tabla de DynamoDB y realizar operaciones CRUD sobre ella. Se busca obtener algo de práctica con la consola de AWS y familiarizarse con los conceptos básicos de DynamoDB.
+
+## 3. Neo4J
+
+Con [este ejercicio](https://github.com/UnirCs/BBDD-PER8263-2324/blob/master/Tema_10/00_Neo4J/Readme.md) trataremos de asimilar los conceptos estudiados en clase sobre Neo4J.
+En este ejercicio crearemos una base de datos orientada a grafos y realizaremos operaciones sobre ella. Los datos pueden ser proporcionados por ti o puedes importar [datos de prueba de Twitter](https://github.com/neo4j-graph-examples/twitter-v2). Ten en cuenta que la operación de importación de datos desde Neo4J Aura DB puede tardar unos minutos. Para importar datos simplemente tienes que utilizar la opción "Import Database" de la consola y seleccionar el fichero de backup obtenido del repositorio anterior (carpeta data/).
