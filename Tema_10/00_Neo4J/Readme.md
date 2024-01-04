@@ -22,6 +22,8 @@ Haz click en el botón "Open" de tu instancia para acceder a la consola de Neo4J
 
 En la parte superior derecha de la pantalla verás, un icono de un birrete de graduación. Haz click para acceder a las cuatro guías de Neo4J.
 
+<img width="1299" alt="guides" src="https://github.com/UnirCs/BBDD-PER8263-2324/assets/115072043/80801e79-6756-493e-a8b7-b744b4a26392">
+
 Estas guías están diseñadas para introducir a los usuarios en el uso de Neo4J. Cada guía tiene una serie de pasos que deberás completar. Todo el proceso es guiado y te ayudará a afianzar los conocimientos sobre Neo4J.
 
 ## 2. Entrega
