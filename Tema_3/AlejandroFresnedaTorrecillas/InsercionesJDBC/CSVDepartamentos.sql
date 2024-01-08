@@ -1,0 +1,1 @@
+INSERT INTO departments (dept_no, dept_name) VALUES (?, ?) ON DUPLICATE KEY UPDATE dept_name = VALUES(dept_name);

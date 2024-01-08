@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "e3f34f8e-efab-4e23-b383-2cb00a4badbf",
+		"name": "MySQL Employee API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31309786"
+	},
+	"item": [
+		{
+			"name": "Get employees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/employees?lastName=Ruiz",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"employees"
+					],
+					"query": [
+						{
+							"key": "lastName",
+							"value": "Ruiz"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get department",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/departments/Customer%20Service",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"departments",
+						"Customer%20Service"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Department",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"deptNo\":\"d011\",\n    \"deptName\":\"Testtttttttt\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/api/departments/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"departments",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get employeesBirthDate",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/employees/getBirthDate?birthDate=1985-11-23",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"employees",
+						"getBirthDate"
+					],
+					"query": [
+						{
+							"key": "birthDate",
+							"value": "1985-11-23"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get paraJubilacion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/employees/paraJubilacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"employees",
+						"paraJubilacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get departmentos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/departments/departamentos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"departments",
+						"departamentos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
