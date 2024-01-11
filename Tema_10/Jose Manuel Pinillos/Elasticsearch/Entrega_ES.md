@@ -2,7 +2,7 @@
 
 ## 1. Ejercicio
 
-<b> Para cada operación solicitada, incluye el comando cURL que se obtiene de Postman </b> en un archivo Entrega_ES.md
+<b> Para cada operación solicitada, incluye el comando URL que se obtiene de Postman </b> en un archivo Entrega_ES.md
 
 ### Parte I) Generar un alias
 - 1. ##### Genera un alias para el indice employees, que se llamará ``employees-alias``. A partir de ahora realizaremos las consultas siempre sobre este alias y no sobre el índice original
