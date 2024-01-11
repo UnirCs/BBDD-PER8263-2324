@@ -1,0 +1,672 @@
+{
+	"info": {
+		"_postman_id": "e952dbd7-cb57-468d-8c45-847dc70bc9a7",
+		"name": "Consultas Elasticsearch",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31315944"
+	},
+	"item": [
+		{
+			"name": "Tema-10",
+			"item": [
+				{
+					"name": "Parte 1 - Generar un alias",
+					"item": [
+						{
+							"name": "Asignar alias",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"actions\": [\n    {\n        \"add\": {\n        \"index\": \"employees\",\n        \"alias\": \"employees-alias\"\n        }\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/_aliases",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"_aliases"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Asignar alias (otra forma)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees/_alias/employees-alias2",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees",
+										"_alias",
+										"employees-alias2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Parte 2 - Inserción de elementos",
+					"item": [
+						{
+							"name": "Insertar nuevo elemento",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var template = `",
+											"<p>Employee Document Created</p>",
+											"`;",
+											"",
+											"function constructVisualizerPayload() {",
+											"    return {response: pm.response.json()};",
+											"}",
+											"",
+											"pm.visualizer.set(template, constructVisualizerPayload());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"FirstName\":\"Jose Manuel\",\n    \"LAstName\":\"Pinillos Rubio\",\n    \"Address\":\"Orense 15, Logroño\",\n    \"Age\":39,\n    \"DateOfJoining\":\"1984-03-27\",\n    \"Designation\":\"Electricista\",\n    \"Gender\":\"Hombre\",\n    \"Interests\":\"Música, deporte, naturaleza, animales\",\n    \"Salary\":2000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees/_doc",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees",
+										"_doc"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Parte 3 - Obtención simple de elementos",
+					"item": [
+						{
+							"name": "1. Empleados cuyo puesto es \"Software Engineer\"",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"query\": {\n        \"term\": {\n            \"Designation\": {\n                \"value\": \"Software Engineer\"\n            }\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees/_search",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Empleados cuyo puesto NO es \"Software Engineer\"",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": {\n    \"bool\": {\n      \"must_not\": {\n        \"term\": {\n          \"Designation\": \"Software Engineer\"\n        }\n      }\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees/_search",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Primera página empleado cuyo puesto es \"Software Engineer\" (35 elementos)",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"from\": 0, //En esta consulta podríamos eliminar este parámetro.\n  \"size\": 35,\n  \"query\": {\n    \"bool\": {\n      \"must_not\": {\n        \"term\": {\n          \"Designation\": \"Software Engineer\"\n        }\n      }\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees/_search",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4. Tercera página empleado cuyo puesto es \"Software Engineer\" (35 elementos)",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"from\": 2,\n  \"size\": 35,\n  \"query\": {\n    \"bool\": {\n      \"must_not\": {\n        \"term\": {\n          \"Designation\": \"Software Engineer\"\n        }\n      }\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees/_search",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "5. Tercera página empleado cuyo puesto es \"Software Engineer\" (35 elementos) Copy",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"size\": 13,\n  \"query\": {\n    \"range\": {\n      \"Salary\": {\n        \"gt\": 67000\n      }\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees/_search",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "6. Total empleados incorporados en Mayo de 2023",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"size\": 0, // Indicamos que no muestre ningun resultado.\n  \"query\": {\n    \"range\": {\n      \"DateOfJoining\": {\n        \"gte\": \"2003-05-01\",\t// Valores mayores o iguales a la fecha descrita.\n        \"lte\": \"2003-05-31\"\t\t// Valores menores o iguales a la fecha descrita.\n      }\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees/_search",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "7. Empleados cuyo nombre sea NATALIE",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"query\": {\n        \"match\": {\n            \"FirstName\": \"NATALIE\"\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees/_search",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "8. Empleados cuya dirección sea o contenga Street",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"query\": {\n        \"multi_match\": {\n            \"query\": \"Street\",\n            \"type\": \"bool_prefix\",\n            \"fields\": [\n                \"Address\"\n            ]\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees/_search",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "9. Empleados cuya dirección sea o contenga wood",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"query\": {\n        \"multi_match\": {\n            \"query\": \"wood\",\n            \"type\": \"bool_prefix\",\n            \"fields\": [\n                \"Address\"\n            ]\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees/_search",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "10. Empleados interesados en Wrestling",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"query\": {\n        \"multi_match\": {\n            \"query\": \"Wrestling\",\n            \"type\": \"bool_prefix\",\n            \"fields\": [\n                \"Interests\"\n            ]\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees/_search",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "11. Número H/M interesados en Wrestling",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"size\":0, // Hacemos que el número de hits sea 0 para que solo nos muestre los valores encontrados.\n    \"query\": {\n        \"multi_match\": {\n            \"query\": \"Wrestling\",\n            \"type\": \"bool_prefix\",\n            \"fields\": [\n                \"Interests\"\n            ]\n        }\n    },\n    \"aggs\": {\n        \"Generos\": {\n            \"terms\": {\n                \"field\": \"Gender\"\n            }\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees/_search",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "12. Edad media de H/M interesados en Wrestling",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"size\":0,\n    \"query\": {\n        \"multi_match\": {\n            \"query\": \"Wrestling\",\n            \"type\": \"bool_prefix\",\n            \"fields\": [\n                \"Interests\"\n            ]\n        }\n    },\n    \"aggs\": {\n        \"Generos\": {\n            \"terms\": {\n                \"field\": \"Gender\"\n            },\n            \"aggs\": {\n                \"Edad Media\": {\n                    \"avg\": {\n                        \"field\": \"Age\"\n                    }\n                }\n            }\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees/_search",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "13. Empleados en función de tramos de salario.",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"size\":0,\n    \"aggs\": {\n        \"Rangos de salario\": {\n            \"range\": {\n                \"field\": \"Salary\",\n                \"ranges\": [\n                    {\"key\": \"Menor a 60000\", \"to\": 60000},\n                    {\"key\": \"Entre 60000 y 67000\", \"from\": 60000, \"to\": 670000},\n                    {\"key\": \"Superior a 67000\", \"from\": 67000}\n                ]\n            }\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees/_search",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "14. Empleados en función de tramos de salario y estado matrimonial",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"size\":0,\n    \"aggs\": {\n        \"Rangos de salario\": {\n            \"range\": {\n                \"field\": \"Salary\",\n                \"ranges\": [\n                    {\"key\": \"Menor a 60000\", \"to\": 60000},\n                    {\"key\": \"Entre 60000 y 67000\", \"from\": 60000, \"to\": 670000},\n                    {\"key\": \"Superior a 67000\", \"from\": 67000}\n                ]\n            },\n            \"aggs\": {\n                \"Estado civil\": {\n                    \"terms\": {\n                        \"field\": \"MaritalStatus\"\n                    }\n                }\n            }\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees/_search",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Parte 4 - Crear otro índice y modificar el alias",
+					"item": [
+						{
+							"name": "1. Creación de índice",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"mappings\":{\n      \"properties\":{\n         \"Address\":{\n            \"type\":\"search_as_you_type\"\n         },\n         \"Age\":{\n            \"type\":\"integer\"\n         },\n         \"DateOfJoining\":{\n            \"type\":\"date\",\n            \"format\":\"yyyy-MM-dd\"\n         },\n         \"Designation\":{\n            \"type\":\"keyword\"\n         },\n         \"FirstName\":{\n            \"type\":\"text\"\n         },\n         \"Gender\":{\n            \"type\":\"keyword\"\n         },\n         \"Interests\":{\n            \"type\":\"text\"\n         },\n         \"LastName\":{\n            \"type\":\"text\"\n         },\n         \"MaritalStatus\":{\n            \"type\":\"keyword\"\n         },\n         \"Salary\":{\n            \"type\":\"double\"\n         }\n      }\n   }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees-v2",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees-v2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Asignar mismo alias a los dos índices",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"actions\": [\n    {\n        \"add\": {\n        \"index\": \"employees\",\n        \"alias\": \"employees-alias\"\n        }\n    },\n    {\n        \"add\": {\n        \"index\": \"employees-v2\",\n        \"alias\": \"employees-alias\"\n        }\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/_aliases",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"_aliases"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Obtener todos los alias",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{elasticsearch-host}}/_alias",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"_alias"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4. Empleados cuyo puesto es \"Software Engineer\" (desde alias)",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"size\":0,\n    \"query\": {\n        \"term\": {\n            \"Designation\": {\n                \"value\": \"Software Engineer\"\n            }\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/employees-alias/_search",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"employees-alias",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "5. Eliminación de alias de indice especifico",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"actions\": [\n    { \"remove\": {\n        \"index\": \"employees\",\n        \"alias\": \"employees-alias\"\n        }\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{elasticsearch-host}}/_aliases",
+									"host": [
+										"{{elasticsearch-host}}"
+									],
+									"path": [
+										"_aliases"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Ejercicios Elasticsearch Tema-10"
+		}
+	]
+}
