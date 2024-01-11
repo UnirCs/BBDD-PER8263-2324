@@ -3,6 +3,7 @@ import java.util.List;
 import com.unir.employees.data.DepartmentRepository;
 import com.unir.employees.model.db.Department;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +20,10 @@ public class DepartmentController {
      * @param deptName - nombre del departamento.
      * @return departamento.
      */
+    @Cacheable(value = "department", key = "#deptName")
     @GetMapping("/{name}")
-    public ResponseEntity<Department> getDepartmentByName(@PathVariable("name") String deptName) {
-        return ResponseEntity.ok(departmentRepository.findByDeptName(deptName).orElse(null));
+    public Department getDepartmentByName(@PathVariable("name") String deptName) {
+        return departmentRepository.findByDeptName(deptName).orElse(null);
     }
 
     /**
