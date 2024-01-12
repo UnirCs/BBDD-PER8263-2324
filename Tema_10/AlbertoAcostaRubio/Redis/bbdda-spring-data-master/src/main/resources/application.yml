@@ -1,5 +1,11 @@
 ## Configuracion de Spring
 spring:
+  cache:
+    type: redis
+    host: localhost
+    port: 6379
+    redis:
+      time-to-live: 60000
   application:
     name: bbdda-spring-data
   datasource:
@@ -12,6 +18,7 @@ spring:
     hibernate:
       ddl-auto: update
 
-## Configuracion de Instancia 
+## Configuracion de Instancia
 server:
   port: 8088
+
