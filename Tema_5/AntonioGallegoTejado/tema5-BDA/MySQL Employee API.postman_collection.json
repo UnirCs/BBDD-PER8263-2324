@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "726aa74f-3f09-4d14-95a7-bf47c3747be6",
+		"name": "MySQL Employee API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28822515"
+	},
+	"item": [
+		{
+			"name": "Get employees by \"lastName\"",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/employees?lastName=Zykh",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"employees"
+					],
+					"query": [
+						{
+							"key": "lastName",
+							"value": "Zykh"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Department by DeptName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/departments/Customer%20Service",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"departments",
+						"Customer%20Service"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Department",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/departments/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"departments",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Employee's Salaries",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/salaries/10001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"salaries",
+						"10001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Employee's Titles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/titles/10754",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"titles",
+						"10754"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Employee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"empNo\": 50000,\r\n    \"firstName\":\"Antonio\",\r\n    \"lastName\":\"Gallego\",\r\n    \"gender\": \"M\",\r\n    \"birthDate\": \"1978-04-21\",\r\n    \"hireDate\": \"2024-01-02\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/api/employees/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"employees",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Employees by Hire Date",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/employees/ByHireDate?from=1990-01-01&to=1990-12-31",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"employees",
+						"ByHireDate"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "1990-01-01"
+						},
+						{
+							"key": "to",
+							"value": "1990-12-31"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Departments by Emp Number",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/api/departments/ByEmpNumber?from=10&to=20000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"api",
+						"departments",
+						"ByEmpNumber"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "10"
+						},
+						{
+							"key": "to",
+							"value": "20000"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
