@@ -1,0 +1,1 @@
+SELECT * FROM employees WHERE emp_no BETWEEN 1000 AND 1100;
