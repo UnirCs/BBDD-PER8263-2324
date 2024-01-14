@@ -6,7 +6,7 @@
 
 Se ha creado la tabla Seguimiento_Fitness que contiene las siguientes claves:
 
-- **Clave de partición**: contendrá un Hash MD5.
+- **Clave de partición**: contendrá un Hash MD5 del correo electrónico.
 - **Clave de ordenación**: compuesta por el nombre y el apellido del usuario.
 
 ![Tabla](images/Tabla.png)
