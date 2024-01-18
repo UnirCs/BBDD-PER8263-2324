@@ -12,22 +12,34 @@ También puedes importar [datos de prueba de Twitter](https://github.com/neo4j-g
 
 ### Parte I) Creación de la instancia de Neo4J
 
-Crea una nueva instancia vacía desde Neo4J Aura DB. Puedes elegir la versión de Neo4J que prefieras. En el proceso se te facilitará una contraseña para acceder a la base de datos. Descarga el archivo y guárdalo.
+![Nueva_instancia](images/Nueva_instancia.png)
+
+<center><i>Instancia creada</i></center>
+
+
 
 ### Parte II) Conexión a la instancia de Neo4J
 
-Haz click en el botón "Open" de tu instancia para acceder a la consola de Neo4J. Se te pedirá la contraseña que se te facilitó en el paso anterior. Una vez dentro, la base de datos estará vacía.
+![Instancia_vacia](images/Instancia_vacia.png)
+
+<center><i>Instancia vacía</i></center>
+
+
 
 ### Parte III) Completa las cuatro guías de Neo4J 
 
-En la parte superior derecha de la pantalla verás, un icono de un birrete de graduación. Haz click para acceder a las cuatro guías de Neo4J.
+![Curso_completado](images/Curso_completado.png)
 
-<img width="1299" alt="guides" src="https://github.com/UnirCs/BBDD-PER8263-2324/assets/115072043/80801e79-6756-493e-a8b7-b744b4a26392">
+<center><i>Captura de pantalla de las guías completadas</i></center>
 
-Estas guías están diseñadas para introducir a los usuarios en el uso de Neo4J. Cada guía tiene una serie de pasos que deberás completar. Todo el proceso es guiado y te ayudará a afianzar los conocimientos sobre Neo4J.
 
-## 2. Entrega
 
-Crea una carpeta con tu nombre y apellidos dentro de ``Tema_10``. Deberás incluir :
+<img src="images/Esquema_del_grafico_actual.png" alt="Esquema_del_grafico_actual" style="zoom:100%;" />
 
-- Una carpeta ``neo4j`` con una o varias capturas de pantalla del grafo final de la base de datos que has construido.
+<center><i>Esquema del Gráfico final</i></center>
+
+
+
+![Esquema_productos_ordenes_categoria](images/Esquema_productos_ordenes_categoria.png)
+
+<center><i>Relaciones entre los nodos: Product, Order y Category</i></center>
