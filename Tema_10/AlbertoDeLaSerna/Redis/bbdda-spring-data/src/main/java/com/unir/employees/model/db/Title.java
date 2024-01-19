@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "titles")
-@IdClass(SalaryId.class)
+@IdClass(TitleId.class)
 @Getter
 @Setter
 @AllArgsConstructor
