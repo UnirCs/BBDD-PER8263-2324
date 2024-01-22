@@ -1,0 +1,12 @@
+### Crear una promoción
+POST http://localhost:8088/api/promotions
+Content-Type: application/json
+
+{
+  "employeeId": "10007",
+  "departmentId": "d011",
+  "title": "Lleva-cafes",
+  "salary": 10000,
+  "name": "Promotion 1",
+  "fromDate": "2023-11-25"
+}
