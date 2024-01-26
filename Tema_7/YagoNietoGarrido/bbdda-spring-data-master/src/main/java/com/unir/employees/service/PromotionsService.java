@@ -24,7 +24,7 @@ public class PromotionsService {
     private final SalaryRepository salaryRepository;
     private final DeptEmptRepository deptEmpRepository;
     private final DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-    
+
     @Transactional
     public String promote(PromotionRequest promotionRequest) throws ParseException {
         int empNo;
