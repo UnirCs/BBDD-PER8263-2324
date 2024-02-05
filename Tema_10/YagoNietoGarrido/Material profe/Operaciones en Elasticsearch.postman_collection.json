@@ -1,0 +1,595 @@
+{
+	"info": {
+		"_postman_id": "0cfa5b64-ed25-4019-970a-a3bebec56f68",
+		"name": "Operaciones en Elasticsearch",
+		"description": "Operaciones con Elasticsearch.\n\nPuedes usar esta colección JSON para realizar operaciones contra el cluster de Elasticsearch que hayas creado a través de Bonsai.io.\n\n**Recuerda añadir la URL de tu Elasticsearch en la sección \"Variables\" de la colección.**",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3472643"
+	},
+	"item": [
+		{
+			"name": "Indices",
+			"item": [
+				{
+					"name": "Obtener todos los indices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{elasticsearch-host}}/_cat/indices",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"_cat",
+								"indices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Creacion de indice",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminacion de indice",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mapping",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees/_mapping",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees",
+								"_mapping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar Mapping",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"properties\":{\n      \"Address\":{\n         \"type\":\"search_as_you_type\"\n      },\n      \"Age\":{\n         \"type\":\"integer\"\n      },\n      \"DateOfJoining\":{\n         \"type\":\"date\",\n         \"format\":\"yyyy-MM-dd\"\n      },\n      \"Designation\":{\n         \"type\":\"keyword\"\n      },\n      \"FirstName\":{\n         \"type\":\"text\"\n      },\n      \"Gender\":{\n         \"type\":\"keyword\"\n      },\n      \"Interests\":{\n         \"type\":\"text\"\n      },\n      \"LastName\":{\n         \"type\":\"text\"\n      },\n      \"MaritalStatus\":{\n         \"type\":\"keyword\"\n      },\n      \"Salary\":{\n         \"type\":\"double\"\n      }\n   }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees/_mapping",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees",
+								"_mapping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Asignar alias",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"actions\": [\n        {\n            \"add\": {\n                \"index\": \"employees\",\n                \"alias\": \"employees-v1\"\n            }\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{elasticsearch-host}}/_aliases",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"_aliases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener alias de indice",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees/_alias",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees",
+								"_alias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los alias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{elasticsearch-host}}/_alias",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"_alias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar alias",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"actions\": [\n        {\n            \"remove\": {\n                \"index\": \"employees\",\n                \"alias\": \"employees-v1\"\n            }\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{elasticsearch-host}}/_aliases",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"_aliases"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Documentos",
+			"item": [
+				{
+					"name": "Insertar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"FirstName\":\"RICARDO\",\n   \"LastName\":\"ALONSO\",\n   \"Designation\":\"Software Architect\",\n   \"Salary\":\"1000000\",\n   \"DateOfJoining\":\"2014-01-13\",\n   \"Address\":\"8445 Green Street Morristown, NJ 07960\",\n   \"Gender\":\"Male\",\n   \"Age\":35,\n   \"MaritalStatus\":\"Married\",\n   \"Interests\":\"R/C Boats,Dolls,Cloud Watching,Animals/pets/dogs,Crocheting,Casino Gambling\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees/_doc",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees",
+								"_doc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener varios de un Indice",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees/_search",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees/_doc/qkesXogB8M2vRuq9K_bD",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees",
+								"_doc",
+								"qkesXogB8M2vRuq9K_bD"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"FirstName\":\"RICARDO\",\n   \"LastName\":\"ALONSO\",\n   \"Designation\":\"Software Architect\",\n   \"Salary\":\"1000000\",\n   \"DateOfJoining\":\"2014-01-13\",\n   \"Address\":\"8445 Green Street Morristown, NJ 07960\",\n   \"Gender\":\"Male\",\n   \"Age\":35,\n   \"MaritalStatus\":\"Married\",\n   \"Interests\":\"R/C Boats,Dolls,Cloud Watching,Animals/pets/dogs,Crocheting,Casino Gambling\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees/_doc/qkesXogB8M2vRuq9K_bD",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees",
+								"_doc",
+								"qkesXogB8M2vRuq9K_bD"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees/_doc/qkesXogB8M2vRuq9K_bD",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees",
+								"_doc",
+								"qkesXogB8M2vRuq9K_bD"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Búsqueda",
+			"item": [
+				{
+					"name": "Term Query",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": {\n        \"term\": {\n            \"Gender\": {\n                \"value\": \"Male\"\n            }\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees/_search",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Match Query",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": {\n        \"match\": {\n            \"FirstName\": \"CIERRA\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees/_search",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Multi-Match Query",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": {\n        \"multi_match\": {\n            \"query\": \"Stre\",\n            \"type\": \"bool_prefix\",\n            \"fields\": [\n                \"Address\",\n                \"Address._2gram\",\n                \"Address._3gram\"\n            ]\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees/_search",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Multi-Match Query + Paginacion",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"from\": 0,\n    \"size\": 3,\n    \"query\": {\n        \"multi_match\": {\n            \"query\": \"Stre\",\n            \"type\": \"bool_prefix\",\n            \"fields\": [\n                \"Address\",\n                \"Address._2gram\",\n                \"Address._3gram\"\n            ]\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees/_search",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Agregaciones/Facetas",
+			"item": [
+				{
+					"name": "Bucket Aggregation (I)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\": 0,\n    \"query\": {\n        \"multi_match\": {\n            \"query\": \"Stre\",\n            \"type\": \"bool_prefix\",\n            \"fields\": [\n                \"Address\",\n                \"Address._2gram\",\n                \"Address._3gram\"\n            ]\n        }\n    },\n    \"aggs\": {\n        \"Generos\": {\n            \"terms\": {\n                \"field\": \"Gender\"\n            }\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees/_search",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bucket Aggregation (II)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\": 0,\n    \"query\": {\n        \"multi_match\": {\n            \"query\": \"Stre\",\n            \"type\": \"bool_prefix\",\n            \"fields\": [\n                \"Address\",\n                \"Address._2gram\",\n                \"Address._3gram\"\n            ]\n        }\n    },\n    \"aggs\": {\n        \"Rangos de edad\": {\n            \"range\": {\n                \"field\": \"Age\",\n                \"ranges\": [\n                    {\"key\": \"De 30 a 34\", \"from\": 30, \"to\":34},\n                    {\"key\": \"A partir de 27\", \"from\": 27},\n                    {\"key\": \"Hasta 90\", \"to\": 90}\n                ]\n            }\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees/_search",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Metric Aggregation",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"size\": 0,\n    \"query\": {\n        \"multi_match\": {\n            \"query\": \"Stre\",\n            \"type\": \"bool_prefix\",\n            \"fields\": [\n                \"Address\",\n                \"Address._2gram\",\n                \"Address._3gram\"\n            ]\n        }\n    },\n    \"aggs\": {\n        \"Edad media\": {\n            \"avg\": {\n                \"field\": \"Age\"\n            }\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees/_search",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sub Aggregation",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"size\":0,\n   \"query\":{\n      \"multi_match\":{\n         \"query\":\"Linc\",\n         \"type\":\"bool_prefix\",\n         \"fields\":[\n            \"Address\",\n            \"Address._2gram\",\n            \"Address._3gram\"\n         ]\n      }\n   },\n   \"aggs\":{\n      \"Generos\":{\n         \"terms\":{\n            \"field\":\"Gender\"\n         },\n         \"aggs\":{\n            \"Edad media\":{\n               \"avg\":{\n                  \"field\":\"Age\"\n               }\n            }\n         }\n      }\n   }\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{elasticsearch-host}}/employees/_search",
+							"host": [
+								"{{elasticsearch-host}}"
+							],
+							"path": [
+								"employees",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
